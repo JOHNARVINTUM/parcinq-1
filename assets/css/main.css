@@ -508,6 +508,15 @@
     .hero .byline{font-size:10px;margin-top:12px;max-width:100%}
     .hero .btn{margin-top:16px}
   }
+  /* ===== what's new page compatibility ===== */
+  .whats-new-feed{padding-top:0}
+  .whats-new-wrap{padding-bottom:clamp(64px,8vw,112px)}
+  .whats-new-index{padding-bottom:clamp(28px,5vw,58px)}
+  .index-row .index-copy{display:block;min-width:0}
+  .whats-new-empty{margin-top:42px}
+  @media(max-width:760px){
+    .index-row .index-copy{grid-column:2}
+  }
   /* ===== category archive compatibility ===== */
   .category-archive-wrap{padding-bottom:clamp(64px,8vw,112px)}
   .category-index{margin-top:clamp(56px,7vw,94px);padding-bottom:clamp(34px,5vw,68px)}
