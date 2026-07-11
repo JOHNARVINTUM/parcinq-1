@@ -6,6 +6,6 @@ const hdr=document.querySelector('header');
   document.querySelectorAll('.ctab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.ctab').forEach(x=>x.classList.remove('active'));t.classList.add('active');}));
   // drawer
   const burger=document.getElementById('burger'),drawer=document.getElementById('drawer'),dback=document.getElementById('drawerBack'),dclose=document.getElementById('drawerClose');
-  const openD=()=>{drawer.classList.add('open');dback.classList.add('open');},closeD=()=>{drawer.classList.remove('open');dback.classList.remove('open');};
+  const openD=()=>{drawer&&drawer.classList.add('open');dback&&dback.classList.add('open');},closeD=()=>{drawer&&drawer.classList.remove('open');dback&&dback.classList.remove('open');};
   burger&&burger.addEventListener('click',openD);dclose&&dclose.addEventListener('click',closeD);dback&&dback.addEventListener('click',closeD);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeD();});

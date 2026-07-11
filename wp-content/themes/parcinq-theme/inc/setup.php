@@ -33,8 +33,9 @@ function parcinq_theme_setup() {
 
 	register_nav_menus(
 		array(
-			'primary' => esc_html__( 'Primary Menu', 'parcinq-theme' ),
-			'footer'  => esc_html__( 'Footer Menu', 'parcinq-theme' ),
+			'header_left'  => esc_html__( 'Header Left Menu', 'parcinq-theme' ),
+			'header_right' => esc_html__( 'Header Right Menu', 'parcinq-theme' ),
+			'footer'       => esc_html__( 'Footer Menu', 'parcinq-theme' ),
 		)
 	);
 }
