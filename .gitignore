@@ -1,2 +1,4 @@
 wp-config.php
 .htaccess
+wp-content/uploads/
+wp-content/plugins/advanced-custom-fields/
