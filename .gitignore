@@ -4,3 +4,5 @@ wp-content/uploads/
 wp-content/plugins/advanced-custom-fields/
 wp-content/plugins/wp-mail-smtp/
 wp-content/plugins/wpforms-lite/
+
+wp-cli.phar
