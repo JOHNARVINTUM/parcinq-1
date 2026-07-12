@@ -61,7 +61,7 @@
     column-gap:clamp(20px,3vw,48px);padding:18px 0 16px;position:relative;min-width:0;overflow:hidden;
   }
   .nav > *{min-width:0}
-  /* center wordmark — the anchor */
+  /* center wordmark Ã¢â‚¬â€ the anchor */
   .logo{
     font-family:var(--sans);font-weight:800;
     font-size:clamp(38px,6.2vw,72px);letter-spacing:.16em;line-height:.9;
@@ -517,7 +517,226 @@
   @media(max-width:760px){
     .index-row .index-copy{grid-column:2}
   }
-  /* ===== category archive compatibility ===== */
+  
+/* ===== advertise page compatibility ===== */
+.advertise-page {
+  padding-bottom: 0;
+}
+
+.advertise-content {
+  padding-bottom: clamp(18px, 3vw, 34px);
+}
+
+.advertise-offers {
+  padding-top: clamp(18px, 3vw, 30px);
+  padding-bottom: 0;
+}
+
+.advertise-offers .offer h2 {
+  font-family: var(--sans);
+  font-size: 22px;
+  line-height: 1.1;
+  margin: 16px 0 10px;
+}
+
+.advertise-cta {
+  margin-bottom: 0;
+}
+
+.advertise-cta .btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 620px) {
+  .advertise-content,
+  .advertise-offers {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+/* ===== contact page compatibility ===== */
+  .contact-page{padding-bottom:clamp(56px,7vw,96px)}
+  .contact-page-grid{align-items:start}
+  .contact-content{max-width:760px}
+  .contact-content > p:first-child{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.7vw,32px);line-height:1.38;color:#111;margin-bottom:30px}
+  .contact-content p{font-size:18px;line-height:1.75;margin-bottom:24px;color:#1f1f1f}
+  .contact-content h2,.contact-content h3{font-family:var(--serif);font-weight:500;font-size:28px;letter-spacing:-.01em;margin:40px 0 14px}
+  .contact-options{border-left:1px solid var(--gray-line);padding-left:clamp(24px,4vw,48px)}
+  .contact-detail a:focus-visible{outline:2px solid var(--pink);outline-offset:4px;color:var(--peri-deep)}
+  @media(max-width:860px){
+    .contact-options{border-left:0;border-top:1px solid var(--gray-line);padding-left:0;padding-top:28px}
+  }
+  /* ===== contact page form compatibility ===== */
+  .contact-page .contact-content form,.contact-page .wpforms-container,.contact-page .wpcf7,.contact-page .gform_wrapper{max-width:760px;margin-top:clamp(28px,4vw,44px)}
+  .contact-page .contact-content form p{margin:0 0 18px}
+  .contact-page .contact-content label,.contact-page .wpforms-field-label,.contact-page .gfield_label,.contact-page .wpcf7-form label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#111;margin:18px 0 7px}
+  .contact-page input[type="text"],.contact-page input[type="email"],.contact-page input[type="tel"],.contact-page input[type="url"],.contact-page input[type="search"],.contact-page input[type="number"],.contact-page input[type="password"],.contact-page select,.contact-page textarea{width:100%;border:1px solid var(--gray-line);border-radius:0;padding:13px 15px;font-family:var(--sans);font-size:15px;line-height:1.45;color:#111;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
+  .contact-page textarea{min-height:170px;resize:vertical}
+  .contact-page input:focus,.contact-page select:focus,.contact-page textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(146,151,183,.18)}
+  .contact-page input[type="submit"],.contact-page button[type="submit"],.contact-page .wpforms-submit,.contact-page .wpcf7-submit,.contact-page .gform_button{margin-top:22px;background:var(--pink);color:#111;border:none;border-radius:0;padding:14px 32px;font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+  .contact-page input[type="submit"]:hover,.contact-page input[type="submit"]:focus-visible,.contact-page button[type="submit"]:hover,.contact-page button[type="submit"]:focus-visible,.contact-page .wpforms-submit:hover,.contact-page .wpforms-submit:focus-visible,.contact-page .wpcf7-submit:hover,.contact-page .wpcf7-submit:focus-visible,.contact-page .gform_button:hover,.contact-page .gform_button:focus-visible{background:var(--peri-deep);color:#fff;transform:translateY(-1px);outline:2px solid var(--peri-deep);outline-offset:3px}
+  .contact-page .wpforms-required-label,.contact-page .gfield_required,.contact-page .wpcf7-not-valid-tip,.contact-page .form-error{color:#9b2f35}
+  .contact-page .wpforms-error,.contact-page .gfield_validation_message,.contact-page .validation_message,.contact-page .wpcf7-response-output,.contact-page .form-message{font-size:14px;line-height:1.5;margin-top:10px;color:#9b2f35}
+  .contact-page .wpforms-confirmation-container-full,.contact-page .wpcf7-mail-sent-ok,.contact-page .gform_confirmation_message,.contact-page .form-success{border:1px solid var(--pink);background:rgba(146,151,183,.12);padding:16px 18px;color:#111;font-size:15px;line-height:1.55}
+  @media(max-width:680px){
+    .contact-page input[type="submit"],.contact-page button[type="submit"],.contact-page .wpforms-submit,.contact-page .wpcf7-submit,.contact-page .gform_button{width:100%}
+  }
+  /* ===== about page compatibility ===== */
+  .about-page{padding-bottom:0}
+  .about-content{padding-bottom:clamp(24px,4vw,44px)}
+  .about-stats{padding-top:clamp(24px,4vw,42px);padding-bottom:clamp(40px,5vw,64px)}
+  .about-cta{margin-top:clamp(24px,4vw,48px);margin-bottom:0}
+  .about-cta .btn:focus-visible{outline:2px solid #fff;outline-offset:4px;background:var(--peri-deep);color:#fff}
+  .about-content > p:first-child,.about-content .lead-para{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.7vw,32px);line-height:1.38;color:#111;margin-bottom:30px}
+  .about-content p{font-size:18px;line-height:1.75;margin-bottom:24px;color:#1f1f1f}
+  .about-content h2,.about-content h3{font-family:var(--serif);font-weight:500;font-size:28px;letter-spacing:-.01em;margin:40px 0 14px}
+  .about-content .wp-block-columns.stats,.about-content .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:var(--max);margin:clamp(40px,6vw,68px) auto 0;padding:0}
+  .about-content .wp-block-columns.stats .wp-block-column,.about-content .stat{border-top:2px solid var(--black);padding-top:16px}
+  .about-content .stat .n,.about-content .wp-block-columns.stats strong{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(34px,4vw,54px);letter-spacing:-.02em;line-height:1;color:#111}
+  .about-content .stat .l,.about-content .wp-block-columns.stats em{display:block;font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+  @media(max-width:860px){
+    .about-content .wp-block-columns.stats,.about-content .stats{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:560px){
+    .about-content .wp-block-columns.stats,.about-content .stats,.about-stats{grid-template-columns:1fr}
+  }
+  
+/* ===== careers page compatibility ===== */
+.careers-page {
+  padding-bottom: 0;
+}
+
+.careers-content {
+  padding-bottom: clamp(18px, 3vw, 34px);
+}
+
+.careers-roles {
+  padding-top: clamp(10px, 2vw, 24px);
+  padding-bottom: clamp(30px, 5vw, 62px);
+}
+
+.careers-roles-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 2px solid var(--black);
+  padding-top: 18px;
+  margin-bottom: 0;
+}
+
+.careers-roles-head h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: -.01em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.careers-roles-head span {
+  color: var(--peri-deep);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  line-height: 1.2;
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.careers-role-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.careers-role {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--gray-line);
+  padding: 22px 4px;
+  min-width: 0;
+}
+
+.careers-role-num {
+  color: var(--peri-deep);
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.careers-role h3 {
+  color: #111;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(19px, 2.3vw, 28px);
+  letter-spacing: -.01em;
+  line-height: 1.1;
+  margin: 0;
+  min-width: 0;
+}
+
+.careers-role-meta {
+  color: var(--ink-soft);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  line-height: 1.4;
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.careers-cta {
+  margin-bottom: 0;
+}
+
+.careers-cta .btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+  .careers-roles-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .careers-roles-head span {
+    text-align: left;
+  }
+
+  .careers-role {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 8px 16px;
+    align-items: start;
+    padding: 20px 0;
+  }
+
+  .careers-role-meta {
+    grid-column: 2;
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 420px) {
+  .careers-role {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px 12px;
+  }
+
+  .careers-role-num {
+    font-size: 20px;
+  }
+}
+/* ===== category archive compatibility ===== */
   .category-archive-wrap{padding-bottom:clamp(64px,8vw,112px)}
   .category-index{margin-top:clamp(56px,7vw,94px);padding-bottom:clamp(34px,5vw,68px)}
   .category-index .index-head{margin-bottom:20px}
@@ -541,3 +760,4 @@
     .index-row .index-title{min-width:0}
     .index-row .cat{grid-column:2;white-space:normal;text-align:left}
   }
+
