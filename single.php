@@ -6,6 +6,30 @@
  */
 
 get_header();
+
+$parcinq_get_display_category = static function ( $parcinq_post_id ) {
+	$parcinq_categories = get_the_category( $parcinq_post_id );
+
+	if ( empty( $parcinq_categories ) ) {
+		return null;
+	}
+
+	usort(
+		$parcinq_categories,
+		static function ( $parcinq_first, $parcinq_second ) {
+			$parcinq_first_depth  = count( get_ancestors( $parcinq_first->term_id, 'category' ) );
+			$parcinq_second_depth = count( get_ancestors( $parcinq_second->term_id, 'category' ) );
+
+			if ( $parcinq_first_depth === $parcinq_second_depth ) {
+				return $parcinq_first->term_id <=> $parcinq_second->term_id;
+			}
+
+			return $parcinq_second_depth <=> $parcinq_first_depth;
+		}
+	);
+
+	return $parcinq_categories[0];
+};
 ?>
 
 <main id="primary" class="site-main">
@@ -13,13 +37,15 @@ get_header();
 	while ( have_posts() ) :
 		the_post();
 		$parcinq_get_field = function_exists( 'get_field' ) ? 'get_field' : null;
+		$parcinq_post_id   = get_the_ID();
 
 		$parcinq_categories = get_the_category();
 		$parcinq_hero_kicker = $parcinq_get_field ? trim( (string) get_field( 'hero_kicker' ) ) : '';
 		$parcinq_kicker = $parcinq_hero_kicker;
 
 		if ( '' === $parcinq_kicker ) {
-			$parcinq_kicker = ! empty( $parcinq_categories ) ? $parcinq_categories[0]->name : __( 'Article', 'parcinq-theme' );
+			$parcinq_display_category = $parcinq_get_display_category( $parcinq_post_id );
+			$parcinq_kicker           = $parcinq_display_category ? $parcinq_display_category->name : __( 'Article', 'parcinq-theme' );
 		}
 
 		$parcinq_title_before   = $parcinq_get_field ? trim( (string) get_field( 'hero_title_before' ) ) : '';
@@ -44,6 +70,50 @@ get_header();
 						'value' => $parcinq_value,
 					);
 				}
+			}
+		}
+
+		$parcinq_related_ids = array();
+		$parcinq_category_ids = wp_list_pluck( $parcinq_categories, 'term_id' );
+
+		if ( ! empty( $parcinq_category_ids ) ) {
+			$parcinq_category_query = new WP_Query(
+				array(
+					'cat'                 => implode( ',', array_map( 'absint', $parcinq_category_ids ) ),
+					'ignore_sticky_posts' => true,
+					'no_found_rows'       => true,
+					'post__not_in'        => array( $parcinq_post_id ),
+					'posts_per_page'      => 3,
+				)
+			);
+
+			if ( $parcinq_category_query->have_posts() ) {
+				while ( $parcinq_category_query->have_posts() ) {
+					$parcinq_category_query->the_post();
+					$parcinq_related_ids[] = get_the_ID();
+				}
+				wp_reset_postdata();
+			}
+		}
+
+		$parcinq_related_ids = array_values( array_unique( array_map( 'absint', $parcinq_related_ids ) ) );
+
+		if ( count( $parcinq_related_ids ) < 3 ) {
+			$parcinq_fill_query = new WP_Query(
+				array(
+					'ignore_sticky_posts' => true,
+					'no_found_rows'       => true,
+					'post__not_in'        => array_merge( array( $parcinq_post_id ), $parcinq_related_ids ),
+					'posts_per_page'      => 3 - count( $parcinq_related_ids ),
+				)
+			);
+
+			if ( $parcinq_fill_query->have_posts() ) {
+				while ( $parcinq_fill_query->have_posts() ) {
+					$parcinq_fill_query->the_post();
+					$parcinq_related_ids[] = get_the_ID();
+				}
+				wp_reset_postdata();
 			}
 		}
 		?>
@@ -97,28 +167,56 @@ get_header();
 				<?php the_content(); ?>
 			</div>
 		</article>
-	<?php endwhile; ?>
 
-	<section class="art-related" aria-label="<?php echo esc_attr__( 'Related articles', 'parcinq-theme' ); ?>">
-		<div class="wrap">
-			<div class="sec-head">
-				<div>
-					<div class="kicker"><?php echo esc_html__( 'Temporary Placeholder', 'parcinq-theme' ); ?></div>
-					<h2><?php echo esc_html__( 'Related Stories', 'parcinq-theme' ); ?></h2>
+		<?php if ( ! empty( $parcinq_related_ids ) ) : ?>
+			<section class="art-related" aria-label="<?php echo esc_attr__( 'Related articles', 'parcinq-theme' ); ?>">
+				<div class="wrap">
+					<div class="sec-head">
+						<div>
+							<h2><?php echo esc_html__( 'Related Stories', 'parcinq-theme' ); ?></h2>
+						</div>
+					</div>
+					<div class="mosaic art-related-grid">
+						<?php foreach ( $parcinq_related_ids as $parcinq_related_id ) : ?>
+							<?php
+							$parcinq_related_category = $parcinq_get_display_category( $parcinq_related_id );
+							$parcinq_thumbnail_id     = get_post_thumbnail_id( $parcinq_related_id );
+							$parcinq_thumbnail_alt    = $parcinq_thumbnail_id ? trim( (string) get_post_meta( $parcinq_thumbnail_id, '_wp_attachment_image_alt', true ) ) : '';
+							$parcinq_thumbnail_alt    = '' !== $parcinq_thumbnail_alt ? $parcinq_thumbnail_alt : get_the_title( $parcinq_related_id );
+							?>
+							<a class="cover-card art-related-card reveal" href="<?php echo esc_url( get_permalink( $parcinq_related_id ) ); ?>">
+								<?php if ( has_post_thumbnail( $parcinq_related_id ) ) : ?>
+									<div class="ph">
+										<?php
+										echo wp_get_attachment_image(
+											$parcinq_thumbnail_id,
+											'large',
+											false,
+											array(
+												'class' => 'archive-card-image',
+												'alt'   => $parcinq_thumbnail_alt,
+											)
+										);
+										?>
+									</div>
+								<?php else : ?>
+									<div class="ph g4" data-label="<?php echo esc_attr__( 'Article Image', 'parcinq-theme' ); ?>"></div>
+								<?php endif; ?>
+								<div class="scrim"></div>
+								<div class="meta">
+									<?php if ( $parcinq_related_category ) : ?>
+										<span class="tag"><?php echo esc_html( $parcinq_related_category->name ); ?></span>
+									<?php endif; ?>
+									<h3><?php echo esc_html( get_the_title( $parcinq_related_id ) ); ?></h3>
+									<span class="date"><?php echo esc_html( get_the_date( '', $parcinq_related_id ) ); ?></span>
+								</div>
+							</a>
+						<?php endforeach; ?>
+					</div>
 				</div>
-			</div>
-			<div class="mosaic">
-				<article class="cover-card m-half reveal">
-					<div class="ph g2"></div><div class="scrim"></div>
-					<div class="meta"><span class="tag"><?php echo esc_html__( 'Placeholder', 'parcinq-theme' ); ?></span><h3><?php echo esc_html__( 'Related story placeholder', 'parcinq-theme' ); ?></h3></div>
-				</article>
-				<article class="cover-card m-half reveal">
-					<div class="ph g3"></div><div class="scrim"></div>
-					<div class="meta"><span class="tag"><?php echo esc_html__( 'Placeholder', 'parcinq-theme' ); ?></span><h3><?php echo esc_html__( 'Related story placeholder', 'parcinq-theme' ); ?></h3></div>
-				</article>
-			</div>
-		</div>
-	</section>
+			</section>
+		<?php endif; ?>
+	<?php endwhile; ?>
 </main>
 
 <?php
