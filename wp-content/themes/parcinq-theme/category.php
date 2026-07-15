@@ -21,10 +21,9 @@ $parcinq_category = get_queried_object();
 					<div class="stand"><?php echo wp_kses_post( category_description() ); ?></div>
 				<?php endif; ?>
 			</div>
+			<div class="ruleheavy category-divider" aria-hidden="true"></div>
 		</div>
 	</section>
-
-	<div class="ruleheavy"></div>
 
 	<div class="wrap category-archive-wrap">
 	<?php if ( have_posts() ) : ?>
@@ -49,6 +48,7 @@ $parcinq_category = get_queried_object();
 					$parcinq_card_category = ! empty( $parcinq_card_categories ) ? $parcinq_card_categories[0]->name : __( 'Article', 'parcinq-theme' );
 					$parcinq_card_class = isset( $parcinq_mosaic_classes[ $parcinq_index ] ) ? $parcinq_mosaic_classes[ $parcinq_index ] : 'm-std';
 					$parcinq_placeholder_class = isset( $parcinq_placeholder_classes[ $parcinq_index ] ) ? $parcinq_placeholder_classes[ $parcinq_index ] : 'g3';
+					$parcinq_excerpt_limit = 0 === $parcinq_index ? 22 : ( 1 === $parcinq_index ? 16 : 0 );
 					?>
 					<a class="cover-card <?php echo esc_attr( $parcinq_card_class ); ?>" href="<?php echo esc_url( get_permalink() ); ?>">
 						<?php if ( has_post_thumbnail() ) : ?>
@@ -68,7 +68,9 @@ $parcinq_category = get_queried_object();
 						<div class="meta">
 							<span class="tag"><?php echo esc_html( $parcinq_card_category ); ?></span>
 							<h3><?php echo esc_html( get_the_title() ); ?></h3>
-							<p><?php echo esc_html( get_the_excerpt() ); ?></p>
+							<?php if ( 0 < $parcinq_excerpt_limit ) : ?>
+								<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), $parcinq_excerpt_limit, '...' ) ); ?></p>
+							<?php endif; ?>
 							<span class="date"><?php echo esc_html( get_the_date() ); ?></span>
 						</div>
 					</a>

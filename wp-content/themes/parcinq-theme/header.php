@@ -15,8 +15,34 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div class="topbar">
-	<div class="ticker">
-		<span><?php echo esc_html__( 'Now Live - PARCINQ', 'parcinq-theme' ); ?></span>
+	<div class="ticker" aria-label="<?php echo esc_attr__( 'Parcinq announcements', 'parcinq-theme' ); ?>">
+		<div class="top-ticker-track">
+			<div class="top-ticker-group">
+				<?php echo esc_html__( 'Now Live — Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+			</div>
+
+			<div class="top-ticker-group" aria-hidden="true">
+				<?php echo esc_html__( 'Now Live — Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">·</span>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -81,16 +107,8 @@
 			?>
 		</nav>
 
-		<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-			<?php
-			if ( has_custom_logo() ) {
-				the_custom_logo();
-			} else {
-				?>
-				PARCIN<span class="five">Q</span>
-				<?php
-			}
-			?>
+		<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+			<img class="parcinq-logo-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-logo-black.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 		</a>
 
 		<nav aria-label="<?php echo esc_attr__( 'Header right menu', 'parcinq-theme' ); ?>">
