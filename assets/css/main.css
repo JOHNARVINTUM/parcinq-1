@@ -263,7 +263,11 @@
   .news-form{display:flex;max-width:480px;margin:0 auto;gap:0}
   .news-form input{flex:1;border:none;padding:16px 18px;font-family:var(--sans);font-size:14px;outline:none;color:#111}
   .news-form button{background:var(--black);color:#fff;border:none;padding:0 28px;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s}
-  .news-form button:hover{background:#000}
+  .news-form button:hover,.news-form button:focus-visible{background:#000;outline:2px solid var(--black);outline-offset:3px}
+  .news-message{margin:18px auto 0;max-width:480px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .news-message-success{color:#111}
+  .news-message-error{color:#6f1d24}
+  .news-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
   /* ---------- footer ---------- */
   footer,.site-footer{background:var(--black);color:#9a9a9a;padding:64px 0 24px}
@@ -1504,5 +1508,6 @@
 .contact-page .form-message p:last-child {
 	margin-bottom: 0;
 }
+
 
 

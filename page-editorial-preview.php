@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Template Name: Editorial Preview
  *
@@ -6,6 +6,8 @@
  *
  * @package Parcinq_Theme
  */
+
+$parcinq_newsletter_result = function_exists( 'parcinq_handle_newsletter_signup' ) ? parcinq_handle_newsletter_signup() : array( 'status' => '', 'message' => '', 'email' => '' );
 
 get_header();
 
@@ -395,18 +397,30 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 		</div>
 	</section>
 
-	<section class="news">
+	<section class="news" id="newsletter">
 		<div class="wrap reveal">
 			<span class="kicker"><?php echo esc_html__( 'Become a CINQtizen', 'parcinq-theme' ); ?></span>
 			<h2><?php echo esc_html__( 'Join the CINQtizens', 'parcinq-theme' ); ?></h2>
 			<p><?php echo esc_html__( 'Covers, culture and the occasional secret drop, straight to your inbox. No noise.', 'parcinq-theme' ); ?></p>
-			<div class="news-form">
-				<input type="email" placeholder="<?php echo esc_attr__( 'your@email.com', 'parcinq-theme' ); ?>" aria-label="<?php echo esc_attr__( 'Email address', 'parcinq-theme' ); ?>">
-				<button><?php echo esc_html__( 'Subscribe', 'parcinq-theme' ); ?></button>
-			</div>
+			<form class="news-form" method="post" action="<?php echo esc_url( home_url( '/#newsletter' ) ); ?>">
+				<?php wp_nonce_field( 'parcinq_newsletter_signup', 'parcinq_newsletter_nonce' ); ?>
+				<label class="screen-reader-text" for="parcinq-newsletter-email"><?php echo esc_html__( 'Email address', 'parcinq-theme' ); ?></label>
+				<input id="parcinq-newsletter-email" type="email" name="parcinq_newsletter_email" placeholder="<?php echo esc_attr__( 'your@email.com', 'parcinq-theme' ); ?>" value="<?php echo esc_attr( $parcinq_newsletter_result['email'] ); ?>" autocomplete="email" required>
+				<label class="news-hp" for="parcinq-newsletter-company"><?php echo esc_html__( 'Company', 'parcinq-theme' ); ?></label>
+				<input class="news-hp" id="parcinq-newsletter-company" type="text" name="parcinq_newsletter_company" tabindex="-1" autocomplete="off">
+				<button type="submit" name="parcinq_newsletter_submit" value="1"><?php echo esc_html__( 'Subscribe', 'parcinq-theme' ); ?></button>
+			</form>
+			<?php if ( ! empty( $parcinq_newsletter_result['message'] ) ) : ?>
+				<div class="news-message news-message-<?php echo esc_attr( $parcinq_newsletter_result['status'] ); ?>" role="status">
+					<?php echo esc_html( $parcinq_newsletter_result['message'] ); ?>
+				</div>
+			<?php endif; ?>
 		</div>
 	</section>
 </main>
 
 <?php
 get_footer();
+
+
+
