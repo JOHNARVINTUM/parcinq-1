@@ -26,7 +26,7 @@ remove_filter( 'body_class', 'parcinq_coming_soon_body_class' );
 $parcinq_logo_url          = get_theme_file_uri( 'assets/images/parcinq-coming-soon-logo.png' );
 $parcinq_launch_url        = home_url( '/' );
 $parcinq_launch_delay_ms   = 5000;
-$parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso' ) ? parcinq_launch_curtain_target_iso() : '2026-07-17T01:00:00+08:00';
+$parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso' ) ? parcinq_launch_curtain_target_iso() : '2026-07-17T12:00:00+08:00';
 ?>
 
 <main id="primary" class="coming-soon-page" aria-labelledby="coming-soon-title">
@@ -34,12 +34,12 @@ $parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso
 	<section class="coming-soon-stage">
 		<div class="coming-soon-inner">
 			<img class="coming-soon-logo" src="<?php echo esc_url( $parcinq_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-			<div class="coming-soon-kicker"><?php echo esc_html__( 'Coming Soon', 'parcinq-theme' ); ?></div>
+			<div class="coming-soon-kicker"><?php echo esc_html__( 'Brief Intermission', 'parcinq-theme' ); ?></div>
 			<h1 id="coming-soon-title" class="coming-soon-title">
-				<span><?php echo esc_html__( 'Oh no,', 'parcinq-theme' ); ?></span>
-				<span class="em"><?php echo esc_html__( 'We are having technical difficulties', 'parcinq-theme' ); ?></span>
+				<span><?php echo esc_html__( 'Uh-oh. :(', 'parcinq-theme' ); ?></span>
+				<span class="em"><?php echo esc_html__( 'Our servers are having a moment.', 'parcinq-theme' ); ?></span>
 			</h1>
-			<p class="coming-soon-sub"><?php echo esc_html__( 'We are working on it now and will be back shortly.', 'parcinq-theme' ); ?></p>
+			<p class="coming-soon-sub"><?php echo wp_kses_post( __( 'We hit an unexpected speed bump during launch, but we&rsquo;re already on it.<br><br><strong>We&rsquo;ll be back soon.</strong>', 'parcinq-theme' ) ); ?></p>
 
 			<div class="coming-soon-countdown" id="countdown" data-launch-url="<?php echo esc_url( $parcinq_launch_url ); ?>" data-launch-delay="<?php echo esc_attr( (string) $parcinq_launch_delay_ms ); ?>" data-launch-target="<?php echo esc_attr( $parcinq_launch_target_iso ); ?>" aria-label="<?php echo esc_attr__( 'Countdown to launch', 'parcinq-theme' ); ?>">
 				<div class="coming-soon-cd-block"><span class="coming-soon-cd-num" id="cd-days">00</span><span class="coming-soon-cd-label"><?php echo esc_html__( 'Days', 'parcinq-theme' ); ?></span></div>
@@ -49,13 +49,7 @@ $parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso
 			</div>
 
 			<div class="coming-soon-live" id="coming-soon-live" hidden><?php echo esc_html__( 'We are live', 'parcinq-theme' ); ?></div>
-
-			<form class="coming-soon-form" id="notify" action="#" method="post">
-				<label class="screen-reader-text" for="coming-soon-email"><?php echo esc_html__( 'Email address', 'parcinq-theme' ); ?></label>
-				<input id="coming-soon-email" name="email" type="email" required placeholder="<?php echo esc_attr__( 'Enter your email', 'parcinq-theme' ); ?>">
-				<button type="submit"><?php echo esc_html__( 'Notify Me', 'parcinq-theme' ); ?></button>
-			</form>
-			<div class="coming-soon-thanks" id="thanks" hidden><?php echo esc_html__( 'You are on the list, CINQtizen. See you soon.', 'parcinq-theme' ); ?></div>
+			<div class="coming-soon-thanks" id="thanks"><?php echo esc_html__( 'Thanks for hanging in there.', 'parcinq-theme' ); ?></div>
 
 			<nav class="coming-soon-socials" aria-label="<?php echo esc_attr__( 'Social links', 'parcinq-theme' ); ?>">
 				<a href="https://instagram.com/parcinqmagazine" target="_blank" rel="noopener" aria-label="<?php echo esc_attr__( 'Instagram', 'parcinq-theme' ); ?>"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 9.9 2.6 10.3 2.6 12s0 2.1.1 3.3c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-3.3s0-2.1-.1-3.3c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
@@ -65,8 +59,8 @@ $parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso
 			</nav>
 		</div>
 		<footer class="coming-soon-footer">
-			<span><?php echo esc_html( 'Ã‚Â© 2026. Big Picture Asia Inc.' ); ?></span>
-			<span class="coming-soon-dot" aria-hidden="true">Ã‚Â·</span><a href="#"><?php echo esc_html__( 'Privacy', 'parcinq-theme' ); ?></a><span class="coming-soon-dot" aria-hidden="true">Ã‚Â·</span><a href="#"><?php echo esc_html__( 'Terms', 'parcinq-theme' ); ?></a>
+			<span><?php echo esc_html( '© 2026. Big Picture Asia Inc.' ); ?></span>
+			<span class="coming-soon-dot" aria-hidden="true">·</span><a href="#"><?php echo esc_html__( 'Privacy', 'parcinq-theme' ); ?></a><span class="coming-soon-dot" aria-hidden="true">·</span><a href="#"><?php echo esc_html__( 'Terms', 'parcinq-theme' ); ?></a>
 		</footer>
 	</section>
 </main>

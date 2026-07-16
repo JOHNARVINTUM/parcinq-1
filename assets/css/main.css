@@ -1165,15 +1165,16 @@
 	--coming-peri: #9297b7;
 	--coming-peri-soft: #c3c6d8;
 	--coming-gold: #d9bb62;
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	height: 100dvh;
-	min-height: 0;
-	overflow: hidden;
+	margin: 0;
+	min-height: 100vh;
+	min-height: 100dvh;
 	font-family: "Archivo", sans-serif;
 	color: #fff;
-	background: #050505;
+	background: #2d1b4e;
+}
+
+body.parcinq-coming-soon-body {
+	overflow: hidden;
 }
 
 .parcinq-coming-soon-body .topbar,
@@ -1190,29 +1191,21 @@
 }
 
 .coming-soon-page {
-	--coming-indigo: #2d1b4e;
-	--coming-peri: #9297b7;
-	--coming-peri-soft: #c3c6d8;
-	--coming-gold: #d9bb62;
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	height: 100dvh;
-	min-height: 0;
+	min-height: 100vh;
+	min-height: 100dvh;
 	overflow: hidden;
-	font-family: "Archivo", sans-serif;
-	color: #fff;
-	background: #050505;
 }
 
 .coming-soon-stage {
 	position: relative;
 	flex: 1 1 auto;
-	height: 100vh;
-	height: 100dvh;
-	min-height: 0;
 	display: flex;
 	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
 	overflow: hidden;
 	background:
 		radial-gradient(90% 60% at 50% 0%, rgba(146, 151, 183, .22), transparent 60%),
@@ -1239,19 +1232,18 @@
 	justify-content: center;
 	width: 100%;
 	max-width: 920px;
-	min-height: 0;
 	margin: 0 auto;
 	text-align: center;
-	padding: clamp(26px, 4vh, 48px) 24px clamp(54px, 8vh, 78px);
+	padding: 48px 24px;
 }
 
 .coming-soon-logo {
 	display: block;
-	width: clamp(250px, 17vw, 330px);
-	height: auto;
+	width: auto;
+	height: clamp(34px, 6vw, 64px);
 	max-width: 82vw;
 	filter: brightness(0) invert(1);
-	margin: 0 auto clamp(34px, 4vh, 44px);
+	margin: 0 auto 36px;
 }
 
 .coming-soon-kicker {
@@ -1266,8 +1258,8 @@
 .coming-soon-title {
 	font-family: "Fraunces", serif;
 	font-weight: 500;
-	font-size: clamp(50px, 6.8vw, 92px);
-	line-height: .88;
+	font-size: clamp(42px, 7.4vw, 92px);
+	line-height: .98;
 	letter-spacing: -.02em;
 	color: #fff;
 	margin: 0;
@@ -1284,12 +1276,12 @@
 }
 
 .coming-soon-sub {
-	margin: clamp(18px, 2.6vh, 26px) auto 0;
-	max-width: 510px;
+	margin: 24px auto 0;
+	max-width: 450px;
 	font-size: 16px;
-	font-weight: 600;
-	line-height: 1.6;
-	color: rgba(255, 255, 255, .82);
+	font-weight: 500;
+	line-height: 1.55;
+	color: rgba(255, 255, 255, .76);
 	text-align: center;
 }
 
@@ -1297,8 +1289,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: clamp(24px, 3.8vw, 46px);
-	margin: clamp(26px, 4vh, 38px) auto 4px;
+	gap: clamp(16px, 3.2vw, 40px);
+	margin: 42px auto 4px;
 	align-items: flex-start;
 }
 
@@ -1306,13 +1298,13 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	min-width: 58px;
+	min-width: 52px;
 }
 
 .coming-soon-cd-num {
 	font-family: "Fraunces", serif;
 	font-weight: 500;
-	font-size: clamp(42px, 5.1vw, 64px);
+	font-size: clamp(36px, 5.5vw, 64px);
 	line-height: 1;
 	color: #fff;
 	font-variant-numeric: tabular-nums;
@@ -1328,61 +1320,13 @@
 }
 
 .coming-soon-live {
-	margin: clamp(26px, 4vh, 38px) auto 4px;
+	margin: 42px auto 4px;
 	font-family: "Fraunces", serif;
 	font-style: italic;
 	font-weight: 400;
-	font-size: clamp(42px, 5.1vw, 64px);
+	font-size: clamp(36px, 5.5vw, 64px);
 	line-height: 1;
 	color: var(--coming-peri-soft);
-}
-.coming-soon-form {
-	display: flex;
-	gap: 0;
-	max-width: 420px;
-	width: 100%;
-	margin: clamp(24px, 3.7vh, 34px) auto 0;
-}
-
-.coming-soon-form input {
-	flex: 1;
-	min-width: 0;
-	border: 1px solid rgba(255, 255, 255, .34);
-	background: rgba(255, 255, 255, .06);
-	color: #fff;
-	padding: 15px 18px;
-	font-family: "Archivo", sans-serif;
-	font-size: 14px;
-	outline: none;
-	transition: border-color .2s;
-}
-
-.coming-soon-form input::placeholder {
-	color: rgba(255, 255, 255, .55);
-}
-
-.coming-soon-form input:focus {
-	border-color: var(--coming-peri);
-}
-
-.coming-soon-form button {
-	background: var(--coming-peri);
-	color: var(--coming-indigo);
-	border: none;
-	padding: 0 26px;
-	font-family: "Archivo", sans-serif;
-	font-weight: 700;
-	font-size: 12px;
-	letter-spacing: .14em;
-	text-transform: uppercase;
-	cursor: pointer;
-	transition: background .2s, color .2s;
-	white-space: nowrap;
-}
-
-.coming-soon-form button:hover,
-.coming-soon-form button:focus-visible {
-	background: #fff;
 }
 
 .coming-soon-thanks {
@@ -1398,7 +1342,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 22px;
-	margin-top: clamp(24px, 3.7vh, 34px);
+	margin-top: 42px;
 }
 
 .coming-soon-socials a {
@@ -1426,17 +1370,13 @@
 }
 
 .coming-soon-footer {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 22px;
+	position: relative;
 	z-index: 6;
-	background: transparent;
 	text-align: center;
-	padding: 0 24px;
-	font-size: 11px;
-	letter-spacing: .06em;
-	color: rgba(255, 255, 255, .54);
+	padding: 26px 24px;
+	font-size: 12px;
+	letter-spacing: .02em;
+	color: rgba(255, 255, 255, .58);
 }
 
 .coming-soon-footer a {
@@ -1459,15 +1399,16 @@
 	.parcinq-coming-soon-body .coming-soon-page,
 	.coming-soon-page,
 	.coming-soon-stage {
-		height: 100svh;
+		min-height: 100svh;
 	}
 
 	.coming-soon-inner {
-		padding: 24px 20px 58px;
+		padding: 34px 20px 24px;
 	}
 
 	.coming-soon-logo {
-		width: clamp(210px, 56vw, 280px);
+		height: clamp(30px, 11vw, 46px);
+		width: auto;
 		margin-bottom: 24px;
 	}
 
@@ -1491,12 +1432,11 @@
 	}
 
 	.coming-soon-logo {
-		width: clamp(190px, 58vw, 235px);
+		height: clamp(28px, 10vw, 40px);
+		width: auto;
 		margin-bottom: 18px;
 	}
 }
-
-
 .contact-page .contact-hp {
 	position: absolute;
 	left: -9999px;
