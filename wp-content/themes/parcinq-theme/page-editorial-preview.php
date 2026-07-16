@@ -268,13 +268,13 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 		<?php endif; ?>
 	</section>
 
+	<?php if ( ! empty( $parcinq_cover_posts ) ) : ?>
 	<section id="covers">
 		<div class="wrap">
 			<div class="sec-head reveal">
 				<div><span class="kicker"><?php echo esc_html__( 'The Vault', 'parcinq-theme' ); ?></span><h2><?php echo esc_html__( 'Cover Stories', 'parcinq-theme' ); ?></h2></div>
 				<?php if ( $parcinq_cover_data['category'] ) : ?><a href="<?php echo esc_url( $parcinq_category_link( $parcinq_cover_data['category'] ) ); ?>" class="seeall"><?php echo esc_html__( 'All Covers', 'parcinq-theme' ); ?></a><?php endif; ?>
 			</div>
-			<?php if ( ! empty( $parcinq_cover_posts ) ) : ?>
 				<div class="cover-grid reveal">
 					<?php foreach ( $parcinq_cover_posts as $parcinq_index => $parcinq_post ) : ?>
 						<?php $parcinq_card_category = $parcinq_get_post_category( $parcinq_post->ID ); ?>
@@ -295,12 +295,12 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 					<?php endforeach; ?>
 					<?php if ( count( $parcinq_cover_posts ) > 1 ) : ?></div><?php endif; ?>
 				</div>
-			<?php else : ?>
-				<div class="home-empty reveal"><?php echo esc_html__( 'Cover stories will appear here once posts are assigned to the Cover Stories category.', 'parcinq-theme' ); ?></div>
-			<?php endif; ?>
 		</div>
 	</section>
 
+	<?php endif; ?>
+
+	<?php if ( ! empty( $parcinq_whats_new_posts ) ) : ?>
 	<section id="new">
 		<div class="wrap">
 			<div class="sec-head reveal">
@@ -316,6 +316,9 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 		</div>
 	</section>
 
+	<?php endif; ?>
+
+	<?php if ( ! empty( $parcinq_music_posts ) ) : ?>
 	<section class="alt" id="music">
 		<div class="wrap">
 			<div class="sec-head reveal">
@@ -336,6 +339,9 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 		</div>
 	</section>
 
+	<?php endif; ?>
+
+	<?php if ( ! empty( $parcinq_style_posts ) ) : ?>
 	<section id="style">
 		<div class="wrap">
 			<div class="sec-head reveal">
@@ -356,6 +362,9 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 		</div>
 	</section>
 
+	<?php endif; ?>
+
+	<?php if ( ! empty( $parcinq_culture_posts ) ) : ?>
 	<section class="alt" id="culture">
 		<div class="wrap">
 			<div class="sec-head reveal">
@@ -374,6 +383,9 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 		</div>
 	</section>
 
+	<?php endif; ?>
+
+	<?php if ( ! empty( $parcinq_videos_posts ) ) : ?>
 	<section class="videos" id="videos">
 		<div class="wrap">
 			<div class="sec-head reveal">
@@ -394,6 +406,8 @@ $parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish
 			</div>
 		</div>
 	</section>
+
+	<?php endif; ?>
 
 	<section class="news">
 		<div class="wrap reveal">

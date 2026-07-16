@@ -1,4 +1,4 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600;700;800&display=swap");
 :root{
     --black:#111111;
     --white:#ffffff;
@@ -268,7 +268,7 @@
   /* ---------- footer ---------- */
   footer,.site-footer{background:var(--black);color:#9a9a9a;padding:64px 0 24px}
   .foot-wrap{max-width:var(--max);margin:0 auto}
-  .foot-top{display:grid;grid-template-columns:1.55fr .8fr .8fr .8fr;gap:clamp(32px,5vw,76px);padding-bottom:54px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .foot-top{display:grid;grid-template-columns:1.65fr .8fr .8fr;gap:clamp(36px,7vw,120px);padding-bottom:54px;border-bottom:1px solid rgba(255,255,255,.14)}
   .foot-brand{min-width:0}
   .foot-logo{display:inline-flex;align-items:center;line-height:1;color:#fff;transition:opacity .2s}
   .foot-logo-image{display:block;height:30px;width:auto;max-width:100%;object-fit:contain;object-position:center}
@@ -342,7 +342,7 @@
   .ph.g9{background:linear-gradient(150deg,#b9bcd2,#5a5e7e)}
 
   /* ===== ticker ===== */
-  .topbar{padding:0}
+  .topbar{display:none;padding:0}
   .ticker{overflow:hidden;white-space:nowrap}
   .top-ticker-track{display:flex;width:max-content;animation:tick 28s linear infinite}
   .top-ticker-group{display:flex;align-items:center;gap:18px;flex:0 0 auto;padding:7px 18px 7px 0}
@@ -1129,6 +1129,10 @@
   .index-row .excerpt{display:block;margin-top:8px;font-size:14px;line-height:1.5;color:var(--ink-soft);letter-spacing:0;text-transform:none;max-width:720px}
   .index-row .date{display:block;margin-top:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
   .archive-empty{font-size:18px;line-height:1.6;color:var(--ink-soft);padding:28px 0 70px}
+  .category-empty-state{max-width:720px;padding:8px 0 clamp(82px,10vw,140px)}
+  .category-empty-state .kicker{display:block;margin-bottom:16px;color:var(--peri-deep);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+  .category-empty-state h2{font-family:var(--serif);font-size:clamp(34px,4.4vw,58px);font-weight:500;line-height:1.02;letter-spacing:-.02em;margin:0 0 20px;color:var(--ink)}
+  .category-empty-state p{max-width:680px;margin:0;color:#333;font-size:18px;line-height:1.75}
   .navigation.pagination{padding:42px 0 76px}
   .nav-links{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
   .nav-links .page-numbers{border:1px solid var(--gray-line);padding:8px 12px;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
@@ -1159,13 +1163,12 @@
 	--coming-gold: #d9bb62;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	height: 100dvh;
-	min-height: 0;
+	min-height: 100svh;
+	min-height: 100dvh;
 	overflow: hidden;
 	font-family: "Archivo", sans-serif;
 	color: #fff;
-	background: #050505;
+	background: #2d1b4e;
 }
 
 .parcinq-coming-soon-body .topbar,
@@ -1188,21 +1191,19 @@
 	--coming-gold: #d9bb62;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	height: 100dvh;
-	min-height: 0;
+	min-height: 100svh;
+	min-height: 100dvh;
 	overflow: hidden;
 	font-family: "Archivo", sans-serif;
 	color: #fff;
-	background: #050505;
+	background: #2d1b4e;
 }
 
 .coming-soon-stage {
 	position: relative;
 	flex: 1 1 auto;
-	height: 100vh;
-	height: 100dvh;
-	min-height: 0;
+	min-height: 100svh;
+	min-height: 100dvh;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -1229,21 +1230,22 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	gap: clamp(8px, 1.5vh, 18px);
 	width: 100%;
 	max-width: 920px;
 	min-height: 0;
 	margin: 0 auto;
 	text-align: center;
-	padding: clamp(26px, 4vh, 48px) 24px clamp(54px, 8vh, 78px);
+	padding: clamp(14px, 2.4vh, 28px) 24px clamp(10px, 1.8vh, 20px);
 }
 
 .coming-soon-logo {
 	display: block;
-	width: clamp(250px, 17vw, 330px);
+	width: clamp(170px, 14vw, 270px);
 	height: auto;
 	max-width: 82vw;
 	filter: brightness(0) invert(1);
-	margin: 0 auto clamp(34px, 4vh, 44px);
+	margin: 0 auto;
 }
 
 .coming-soon-kicker {
@@ -1252,13 +1254,13 @@
 	letter-spacing: .48em;
 	text-transform: uppercase;
 	color: var(--coming-gold);
-	margin: 0 0 24px;
+	margin: 0;
 }
 
 .coming-soon-title {
 	font-family: "Fraunces", serif;
 	font-weight: 500;
-	font-size: clamp(50px, 6.8vw, 92px);
+	font-size: clamp(48px, 5vw, 88px);
 	line-height: .88;
 	letter-spacing: -.02em;
 	color: #fff;
@@ -1272,15 +1274,16 @@
 
 .coming-soon-title .em {
 	font-style: italic;
+	font-size: clamp(44px, 5.5vw, 92px);
 	color: var(--coming-peri-soft);
 }
 
 .coming-soon-sub {
-	margin: clamp(18px, 2.6vh, 26px) auto 0;
+	margin: 0 auto;
 	max-width: 510px;
 	font-size: 16px;
 	font-weight: 600;
-	line-height: 1.6;
+	line-height: 1.5;
 	color: rgba(255, 255, 255, .82);
 	text-align: center;
 }
@@ -1290,7 +1293,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: clamp(24px, 3.8vw, 46px);
-	margin: clamp(26px, 4vh, 38px) auto 4px;
+	margin: 0 auto;
 	align-items: flex-start;
 }
 
@@ -1304,7 +1307,7 @@
 .coming-soon-cd-num {
 	font-family: "Fraunces", serif;
 	font-weight: 500;
-	font-size: clamp(42px, 5.1vw, 64px);
+	font-size: clamp(42px, 4vw, 70px);
 	line-height: 1;
 	color: #fff;
 	font-variant-numeric: tabular-nums;
@@ -1316,24 +1319,25 @@
 	letter-spacing: .2em;
 	text-transform: uppercase;
 	color: var(--coming-gold);
-	margin-top: 12px;
+	margin-top: 6px;
 }
 
 .coming-soon-live {
-	margin: clamp(26px, 4vh, 38px) auto 4px;
+	margin: 0 auto;
 	font-family: "Fraunces", serif;
 	font-style: italic;
 	font-weight: 400;
-	font-size: clamp(42px, 5.1vw, 64px);
+	font-size: clamp(42px, 4vw, 70px);
 	line-height: 1;
 	color: var(--coming-peri-soft);
 }
+
 .coming-soon-form {
 	display: flex;
 	gap: 0;
 	max-width: 420px;
 	width: 100%;
-	margin: clamp(24px, 3.7vh, 34px) auto 0;
+	margin: 0 auto;
 }
 
 .coming-soon-form input {
@@ -1378,7 +1382,7 @@
 }
 
 .coming-soon-thanks {
-	margin: 38px auto 0;
+	margin: 0 auto;
 	font-family: "Fraunces", serif;
 	font-style: italic;
 	font-size: 20px;
@@ -1390,7 +1394,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 22px;
-	margin-top: clamp(24px, 3.7vh, 34px);
+	margin-top: 0;
 }
 
 .coming-soon-socials a {
@@ -1418,14 +1422,13 @@
 }
 
 .coming-soon-footer {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 22px;
+	position: relative;
+	flex: 0 0 auto;
 	z-index: 6;
 	background: transparent;
+	border: 0;
 	text-align: center;
-	padding: 0 24px;
+	padding: 0 24px clamp(12px, 2vh, 22px);
 	font-size: 11px;
 	letter-spacing: .06em;
 	color: rgba(255, 255, 255, .54);
@@ -1451,25 +1454,37 @@
 	.parcinq-coming-soon-body .coming-soon-page,
 	.coming-soon-page,
 	.coming-soon-stage {
-		height: 100svh;
+		min-height: 100svh;
+		min-height: 100dvh;
 	}
 
 	.coming-soon-inner {
-		padding: 24px 20px 58px;
+		padding: 16px 20px 12px;
+		gap: 10px;
 	}
 
 	.coming-soon-logo {
-		width: clamp(210px, 56vw, 280px);
-		margin-bottom: 24px;
+		width: clamp(170px, 48vw, 240px);
 	}
 
 	.coming-soon-title {
-		font-size: clamp(38px, 12vw, 56px);
+		font-size: clamp(38px, 10vw, 52px);
 	}
 
 	.coming-soon-sub {
-		margin-top: 18px;
 		font-size: 14px;
+	}
+
+	.coming-soon-countdown {
+		gap: 14px;
+	}
+
+	.coming-soon-form {
+		max-width: 360px;
+	}
+
+	.coming-soon-footer {
+		padding-bottom: 12px;
 	}
 }
 
@@ -1483,11 +1498,9 @@
 	}
 
 	.coming-soon-logo {
-		width: clamp(190px, 58vw, 235px);
-		margin-bottom: 18px;
+		width: clamp(160px, 54vw, 210px);
 	}
 }
-
 
 .contact-page .contact-hp {
 	position: absolute;

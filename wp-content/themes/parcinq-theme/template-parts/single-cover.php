@@ -16,6 +16,11 @@ if ( ! is_callable( $parcinq_get_display_category ) ) {
 $parcinq_get_field  = function_exists( 'get_field' ) ? 'get_field' : null;
 $parcinq_post_id    = get_the_ID();
 $parcinq_categories = get_the_category();
+$parcinq_author_id          = (int) get_the_author_meta( 'ID' );
+$parcinq_author_name        = get_the_author_meta( 'display_name', $parcinq_author_id );
+$parcinq_author_description = get_the_author_meta( 'description', $parcinq_author_id );
+$parcinq_author_url         = get_author_posts_url( $parcinq_author_id );
+$parcinq_author_first_name  = strtok( $parcinq_author_name, ' ' ) ?: $parcinq_author_name;
 
 $parcinq_hero_kicker = $parcinq_get_field ? trim( (string) get_field( 'hero_kicker' ) ) : '';
 $parcinq_kicker      = $parcinq_hero_kicker;
@@ -33,7 +38,7 @@ $parcinq_has_custom_title = '' !== $parcinq_title_before || '' !== $parcinq_titl
 $parcinq_credit_fields = array(
 	'photographer'       => __( 'Photography', 'parcinq-theme' ),
 	'art_director'       => __( 'Art Direction', 'parcinq-theme' ),
-	'stylist'            => __( 'Styling', 'parcinq-theme' ),
+	'stylist'            => __( 'By', 'parcinq-theme' ),
 	'additional_credits' => __( 'Additional Credits', 'parcinq-theme' ),
 );
 $parcinq_credits = array();
@@ -144,6 +149,39 @@ if ( count( $parcinq_related_ids ) < 3 ) {
 	<div class="art-body">
 		<?php the_content(); ?>
 	</div>
+	<footer class="parcinq-author-profile art-author-profile">
+		<a class="parcinq-author-profile__avatar" href="<?php echo esc_url( $parcinq_author_url ); ?>">
+			<?php
+			echo get_avatar(
+				$parcinq_author_id,
+				64,
+				'',
+				sprintf(
+					/* translators: %s: Author display name. */
+					__( 'Profile photo of %s', 'parcinq-theme' ),
+					$parcinq_author_name
+				),
+				array( 'class' => 'parcinq-author-profile__image' )
+			);
+			?>
+		</a>
+		<div class="parcinq-author-profile__body">
+			<a class="parcinq-author-profile__name" href="<?php echo esc_url( $parcinq_author_url ); ?>"><?php echo esc_html( $parcinq_author_name ); ?></a>
+			<span class="parcinq-author-profile__role"><?php echo esc_html__( 'Parcinq Contributor', 'parcinq-theme' ); ?></span>
+			<?php if ( '' !== trim( (string) $parcinq_author_description ) ) : ?>
+				<p><?php echo esc_html( $parcinq_author_description ); ?></p>
+			<?php endif; ?>
+			<a href="<?php echo esc_url( $parcinq_author_url ); ?>" class="parcinq-author-profile__more">
+				<?php
+				printf(
+					/* translators: %s: Author first name or display name. */
+					esc_html__( 'More stories by %s', 'parcinq-theme' ),
+					esc_html( $parcinq_author_first_name )
+				);
+				?> &rsaquo;
+			</a>
+		</div>
+	</footer>
 </article>
 
 <?php if ( ! empty( $parcinq_related_ids ) ) : ?>
