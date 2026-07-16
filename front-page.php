@@ -36,7 +36,7 @@ $parcinq_logo_url = get_theme_file_uri( 'assets/images/parcinq-coming-soon-logo.
 				<span><?php echo esc_html__( 'Something New', 'parcinq-theme' ); ?></span>
 				<span class="em"><?php echo esc_html__( 'Is On the Way', 'parcinq-theme' ); ?></span>
 			</h1>
-			<p class="coming-soon-sub"><?php echo esc_html__( 'We are refreshing PARCINQ from the ground up. A new home for Music, Style and Culture is almost here.', 'parcinq-theme' ); ?></p>
+			<p class="coming-soon-sub"><?php echo esc_html__( 'We are refreshing PARCINQ from the ground up. A new home for Music, Style, and Culture is almost here.', 'parcinq-theme' ); ?></p>
 
 			<div class="coming-soon-countdown" id="countdown" aria-label="<?php echo esc_attr__( 'Countdown to launch', 'parcinq-theme' ); ?>">
 				<div class="coming-soon-cd-block"><span class="coming-soon-cd-num" id="cd-days">00</span><span class="coming-soon-cd-label"><?php echo esc_html__( 'Days', 'parcinq-theme' ); ?></span></div>
