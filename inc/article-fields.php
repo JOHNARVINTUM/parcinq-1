@@ -23,6 +23,23 @@ function parcinq_register_article_hero_fields() {
 			'title'                 => 'Article Hero Settings',
 			'fields'                => array(
 				array(
+					'key'           => 'field_parcinq_article_layout',
+					'label'         => 'Article Layout',
+					'name'          => 'article_layout',
+					'type'          => 'select',
+					'instructions'  => 'Choose the visual article template for this post.',
+					'required'      => 0,
+					'choices'       => array(
+						'cover'    => 'Cover',
+						'standard' => 'Standard',
+					),
+					'default_value' => 'cover',
+					'allow_null'    => 0,
+					'multiple'      => 0,
+					'ui'            => 0,
+					'wrapper'       => array( 'width' => '', 'class' => '', 'id' => '' ),
+				),
+				array(
 					'key'           => 'field_parcinq_hero_kicker',
 					'label'         => 'Hero Kicker',
 					'name'          => 'hero_kicker',
