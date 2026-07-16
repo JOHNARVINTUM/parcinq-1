@@ -15,7 +15,8 @@ const hdr=document.querySelector('header');
   const countdown = document.getElementById('countdown');
   if (!countdown) return;
 
-  const target = new Date('2026-07-17T12:00:00+08:00').getTime();
+  const launchTarget = countdown.dataset.launchTarget || '2026-07-17T00:00:00+08:00';
+  const target = new Date(launchTarget).getTime();
   const days = document.getElementById('cd-days');
   const hours = document.getElementById('cd-hours');
   const mins = document.getElementById('cd-mins');
@@ -23,19 +24,45 @@ const hdr=document.querySelector('header');
   const form = document.getElementById('notify');
   const email = document.getElementById('coming-soon-email');
   const thanks = document.getElementById('thanks');
+  const live = document.getElementById('coming-soon-live');
+  const redirectUrl = countdown.dataset.launchUrl || '/';
+  const redirectDelay = Number.parseInt(countdown.dataset.launchDelay || '5000', 10);
   const pad = (number) => String(number).padStart(2, '0');
+  let launchHandled = false;
+  let intervalId;
 
-  const tick = () => {
-    let diff = target - Date.now();
-    if (diff < 0) diff = 0;
+  const setCountdown = (diff) => {
     if (days) days.textContent = pad(Math.floor(diff / 86400000));
     if (hours) hours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
     if (mins) mins.textContent = pad(Math.floor((diff % 3600000) / 60000));
     if (secs) secs.textContent = pad(Math.floor((diff % 60000) / 1000));
   };
 
+  const handleLaunch = () => {
+    if (launchHandled) return;
+    launchHandled = true;
+    if (intervalId) window.clearInterval(intervalId);
+    countdown.hidden = true;
+    if (form) form.style.display = 'none';
+    if (thanks) thanks.hidden = true;
+    if (live) live.hidden = false;
+    window.setTimeout(() => {
+      window.location.assign(redirectUrl);
+    }, Number.isFinite(redirectDelay) ? redirectDelay : 5000);
+  };
+
+  const tick = () => {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      setCountdown(0);
+      handleLaunch();
+      return;
+    }
+    setCountdown(diff);
+  };
+
   tick();
-  window.setInterval(tick, 1000);
+  intervalId = window.setInterval(tick, 1000);
 
   if (form && email && thanks) {
     form.addEventListener('submit', (event) => {

@@ -1,0 +1,6 @@
+wp-config.php
+.htaccess
+wp-cli.phar
+wp-content/
+*.zip
+*.wpress

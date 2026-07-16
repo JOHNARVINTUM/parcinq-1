@@ -10,6 +10,8 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-site-icon.png' ); ?>" type="image/png">
+	<link rel="apple-touch-icon" href="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-site-icon.png' ); ?>">
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -18,29 +20,29 @@
 	<div class="ticker" aria-label="<?php echo esc_attr__( 'Parcinq announcements', 'parcinq-theme' ); ?>">
 		<div class="top-ticker-track">
 			<div class="top-ticker-group">
-				<?php echo esc_html__( 'Now Live — Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'Now Live â€” Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 			</div>
 
 			<div class="top-ticker-group" aria-hidden="true">
-				<?php echo esc_html__( 'Now Live — Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<?php echo esc_html__( 'Now Live â€” Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">·</span>
+				<span aria-hidden="true">Â·</span>
 			</div>
 		</div>
 	</div>
