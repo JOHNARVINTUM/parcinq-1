@@ -519,7 +519,39 @@
 .parcinq-author-profile__more{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#111;font-weight:800;text-decoration:none;border-bottom:1px solid var(--peri-deep)}
 .parcinq-author-profile__more:hover,.parcinq-author-profile__more:focus-visible{color:var(--peri-deep)}
 .art-author-profile{margin-bottom:clamp(46px,7vw,82px)}
-@media(max-width:560px){.parcinq-author-profile{flex-direction:column;align-items:flex-start;gap:16px;padding:24px}.parcinq-author-profile__avatar{width:64px;height:64px;flex-basis:64px}.parcinq-author-profile__name{font-size:24px}}  /* ===== nav dropdowns ===== */
+@media(max-width:560px){.parcinq-author-profile{flex-direction:column;align-items:flex-start;gap:16px;padding:24px}.parcinq-author-profile__avatar{width:64px;height:64px;flex-basis:64px}.parcinq-author-profile__name{font-size:24px}}
+/* ===== contributor author archives ===== */
+.author-page{background:#fff;color:#111}
+.author-hero{padding:clamp(54px,8vw,110px) var(--gut) clamp(34px,5vw,68px);background:var(--gray)}
+.author-wrap{width:min(100% - 48px,var(--max));margin:0 auto;display:grid;grid-template-columns:minmax(180px,280px) minmax(0,1fr);gap:clamp(30px,5vw,72px);align-items:center}
+.author-photo{aspect-ratio:4/5;background:linear-gradient(135deg,#6f739b,#17182c);overflow:hidden}
+.author-photo-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.author-info h1{font-family:var(--serif);font-weight:500;font-size:clamp(44px,7vw,92px);line-height:.96;letter-spacing:-.03em;margin:12px 0 10px}
+.author-role{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--peri-deep);font-weight:800;margin:0 0 18px}
+.author-bio{max-width:680px;color:#333;font-size:18px;line-height:1.68}
+.author-bio p{margin:0 0 14px}
+.author-social{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:22px}
+.author-social a{font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:#111;border-bottom:1px solid var(--peri-deep);padding-bottom:3px;text-decoration:none}
+.author-social a:hover,.author-social a:focus-visible{color:var(--peri-deep);outline:0}
+.author-count{margin:24px 0 0;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.author-stories{padding:clamp(44px,6vw,78px) 0 clamp(58px,8vw,104px)}
+.author-story-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.author-story-card{min-width:0;background:#fff;border-bottom:1px solid var(--gray-line)}
+.author-story-card a{display:block;color:inherit;text-decoration:none;height:100%}
+.author-story-media{position:relative;aspect-ratio:4/5;background:var(--gray);overflow:hidden}
+.author-story-media .ph{position:absolute;inset:0;height:100%}
+.author-story-image{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.author-story-card a:hover .author-story-image,.author-story-card a:focus-visible .author-story-image{transform:scale(1.04)}
+.author-story-body{padding:18px 0 22px}
+.author-story-body h3{font-family:var(--serif);font-weight:500;font-size:clamp(23px,2.4vw,34px);line-height:1.08;letter-spacing:-.02em;margin:8px 0 10px}
+.author-story-body p{font-size:15px;line-height:1.58;color:#444;margin:0 0 12px}
+.author-story-body .date{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.author-empty{border-top:2px solid var(--black);padding-top:22px;max-width:720px}
+.author-empty h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4vw,44px);line-height:1.05;margin:0 0 12px}
+.author-empty p{font-size:17px;line-height:1.6;color:#444;margin:0}
+.parcinq-author-profile__avatar:focus-visible,.parcinq-author-profile__more:focus-visible{outline:2px solid var(--peri-deep);outline-offset:4px}
+@media(max-width:900px){.author-story-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.author-wrap{width:min(100% - 32px,var(--max));grid-template-columns:1fr}.author-photo{max-width:220px}.author-story-grid{grid-template-columns:1fr}.author-hero{padding-top:42px}.author-info h1{font-size:clamp(38px,12vw,58px)}}  /* ===== nav dropdowns ===== */
   @media(min-width:1181px){
     header,.wrap,.nav,.nav > nav,.menu{overflow:visible}
     .menu a{max-width:none;overflow:visible;text-overflow:clip}

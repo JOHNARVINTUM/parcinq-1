@@ -139,7 +139,7 @@ if ( count( $parcinq_related_ids ) < 3 ) {
 							esc_html( $parcinq_credit['value'] )
 						);
 					}
-					echo esc_html( implode( ' · ', $parcinq_credit_output ) );
+					echo esc_html( implode( ' Â· ', $parcinq_credit_output ) );
 					?>
 				</div>
 			<?php endif; ?>
@@ -149,39 +149,7 @@ if ( count( $parcinq_related_ids ) < 3 ) {
 	<div class="art-body">
 		<?php the_content(); ?>
 	</div>
-	<footer class="parcinq-author-profile art-author-profile">
-		<a class="parcinq-author-profile__avatar" href="<?php echo esc_url( $parcinq_author_url ); ?>">
-			<?php
-			echo get_avatar(
-				$parcinq_author_id,
-				64,
-				'',
-				sprintf(
-					/* translators: %s: Author display name. */
-					__( 'Profile photo of %s', 'parcinq-theme' ),
-					$parcinq_author_name
-				),
-				array( 'class' => 'parcinq-author-profile__image' )
-			);
-			?>
-		</a>
-		<div class="parcinq-author-profile__body">
-			<a class="parcinq-author-profile__name" href="<?php echo esc_url( $parcinq_author_url ); ?>"><?php echo esc_html( $parcinq_author_name ); ?></a>
-			<span class="parcinq-author-profile__role"><?php echo esc_html__( 'Parcinq Contributor', 'parcinq-theme' ); ?></span>
-			<?php if ( '' !== trim( (string) $parcinq_author_description ) ) : ?>
-				<p><?php echo esc_html( $parcinq_author_description ); ?></p>
-			<?php endif; ?>
-			<a href="<?php echo esc_url( $parcinq_author_url ); ?>" class="parcinq-author-profile__more">
-				<?php
-				printf(
-					/* translators: %s: Author first name or display name. */
-					esc_html__( 'More stories by %s', 'parcinq-theme' ),
-					esc_html( $parcinq_author_first_name )
-				);
-				?> &rsaquo;
-			</a>
-		</div>
-	</footer>
+	<?php get_template_part( 'template-parts/article-author', null, array( 'author_id' => get_post_field( 'post_author', get_the_ID() ) ) ); ?>
 </article>
 
 <?php if ( ! empty( $parcinq_related_ids ) ) : ?>
