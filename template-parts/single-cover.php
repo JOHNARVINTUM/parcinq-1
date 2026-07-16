@@ -139,7 +139,7 @@ if ( count( $parcinq_related_ids ) < 3 ) {
 							esc_html( $parcinq_credit['value'] )
 						);
 					}
-					echo esc_html( implode( ' Ã‚Â· ', $parcinq_credit_output ) );
+                    echo wp_kses( implode( ' <span aria-hidden="true">&middot;</span> ', $parcinq_credit_output ), array( 'span' => array( 'aria-hidden' => true ) ) );
 					?>
 				</div>
 			<?php endif; ?>
