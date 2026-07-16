@@ -53,10 +53,6 @@ $parcinq_shop_url  = $parcinq_shop_page instanceof WP_Post && 'publish' === $par
 
 $parcinq_franchise_links = array(
 	array(
-		'label' => __( 'City Boy', 'parcinq-theme' ),
-		'url'   => $parcinq_get_page_url( 'city-boy' ),
-	),
-	array(
 		'label' => __( 'Boys of Summer', 'parcinq-theme' ),
 		'url'   => $parcinq_get_category_url( 'boys-of-summer', 'cover-stories' ),
 	),
@@ -70,22 +66,33 @@ $parcinq_franchise_links = array(
 	),
 );
 
+$parcinq_footer_logo_path = get_template_directory() . '/assets/images/parcinq-logo-white.png';
+$parcinq_footer_logo_url  = get_template_directory_uri() . '/assets/images/parcinq-logo-white.png';
+
+if ( file_exists( $parcinq_footer_logo_path ) ) {
+	$parcinq_footer_logo_url = add_query_arg( 'ver', filemtime( $parcinq_footer_logo_path ), $parcinq_footer_logo_url );
+}
+
 $parcinq_social_links = array(
 	array(
+		'label' => __( 'Facebook', 'parcinq-theme' ),
+		'url'   => 'https://facebook.com/parcinqmagazine',
+	),
+	array(
 		'label' => __( 'Instagram', 'parcinq-theme' ),
-		'url'   => '#',
-	),
-	array(
-		'label' => __( 'TikTok', 'parcinq-theme' ),
-		'url'   => '#',
-	),
-	array(
-		'label' => __( 'YouTube', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://instagram.com/parcinqmagazine',
 	),
 	array(
 		'label' => __( 'X', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://x.com/parcinqmagazine',
+	),
+	array(
+		'label' => __( 'TikTok', 'parcinq-theme' ),
+		'url'   => 'https://www.tiktok.com/@parcinqmagazine',
+	),
+	array(
+		'label' => __( 'YouTube', 'parcinq-theme' ),
+		'url'   => 'https://www.youtube.com/@ParcinqMagazine',
 	),
 );
 ?>
@@ -94,7 +101,7 @@ $parcinq_social_links = array(
 		<div class="foot-top">
 			<div class="foot-brand">
 				<a class="foot-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-					PARCIN<span class="five">Q</span>
+					<img class="foot-logo-image" src="<?php echo esc_url( $parcinq_footer_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 				</a>
 				<p><?php echo esc_html__( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' ); ?></p>
 			</div>
@@ -134,19 +141,10 @@ $parcinq_social_links = array(
 		</div>
 
 		<div class="foot-bot">
-			<span>
-				<?php
-				printf(
-					/* translators: 1: Current year. 2: Site name. */
-					esc_html__( '© %1$s %2$s. All rights reserved.', 'parcinq-theme' ),
-					esc_html( gmdate( 'Y' ) ),
-					esc_html( get_bloginfo( 'name' ) )
-				);
-				?>
-			</span>
+			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html__( 'PARCINQ. All rights reserved. Big Picture Asia Inc.', 'parcinq-theme' ); ?></span>
 			<nav class="socials" aria-label="<?php echo esc_attr__( 'Social links', 'parcinq-theme' ); ?>">
 				<?php foreach ( $parcinq_social_links as $parcinq_link ) : ?>
-					<a href="<?php echo esc_url( $parcinq_link['url'] ); ?>"><?php echo esc_html( $parcinq_link['label'] ); ?></a>
+					<a href="<?php echo esc_url( $parcinq_link['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $parcinq_link['label'] ); ?></a>
 				<?php endforeach; ?>
 			</nav>
 		</div>

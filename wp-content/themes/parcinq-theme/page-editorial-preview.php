@@ -122,7 +122,7 @@ $parcinq_hero_posts   = array();
 if ( ! empty( $parcinq_sticky_posts ) ) {
 	$parcinq_hero_posts = $parcinq_get_posts(
 		array(
-			'posts_per_page'      => 1,
+			'posts_per_page'      => 3,
 			'post__in'            => $parcinq_sticky_posts,
 			'post__not_in'        => array(),
 			'ignore_sticky_posts' => false,
@@ -132,61 +132,26 @@ if ( ! empty( $parcinq_sticky_posts ) ) {
 	);
 }
 
-if ( empty( $parcinq_hero_posts ) ) {
-	$parcinq_hero_posts = $parcinq_get_posts( array( 'posts_per_page' => 1 ) );
+if ( count( $parcinq_hero_posts ) < 3 ) {
+	$parcinq_hero_ids = wp_list_pluck( $parcinq_hero_posts, 'ID' );
+	$parcinq_hero_posts = array_merge(
+		$parcinq_hero_posts,
+		$parcinq_get_posts(
+			array(
+				'posts_per_page' => 3 - count( $parcinq_hero_posts ),
+				'post__not_in'   => array_map( 'absint', $parcinq_hero_ids ),
+			)
+		)
+	);
 }
 
-$parcinq_hero_post = ! empty( $parcinq_hero_posts ) ? $parcinq_hero_posts[0] : null;
-
-$parcinq_hero_category       = null;
-$parcinq_hero_kicker         = '';
-$parcinq_hero_title_before   = '';
-$parcinq_hero_title_emphasis = '';
-$parcinq_hero_title_after    = '';
-$parcinq_hero_has_title      = false;
-$parcinq_hero_credits        = array();
-
-if ( $parcinq_hero_post ) {
-	$parcinq_track_posts( array( $parcinq_hero_post ) );
-
-	$parcinq_hero_category = $parcinq_get_post_category( $parcinq_hero_post->ID );
-
-
-	if ( function_exists( 'get_field' ) ) {
-		$parcinq_hero_kicker         = trim( (string) get_field( 'hero_kicker', $parcinq_hero_post->ID ) );
-		$parcinq_hero_title_before   = trim( (string) get_field( 'hero_title_before', $parcinq_hero_post->ID ) );
-		$parcinq_hero_title_emphasis = trim( (string) get_field( 'hero_title_emphasis', $parcinq_hero_post->ID ) );
-		$parcinq_hero_title_after    = trim( (string) get_field( 'hero_title_after', $parcinq_hero_post->ID ) );
-
-		$parcinq_hero_credit_fields = array(
-			'photographer'       => __( 'Photography', 'parcinq-theme' ),
-			'art_director'       => __( 'Art Direction', 'parcinq-theme' ),
-			'stylist'            => __( 'Styling', 'parcinq-theme' ),
-			'additional_credits' => __( 'Additional Credits', 'parcinq-theme' ),
-		);
-
-		foreach ( $parcinq_hero_credit_fields as $parcinq_field_name => $parcinq_label ) {
-			$parcinq_value = trim( (string) get_field( $parcinq_field_name, $parcinq_hero_post->ID ) );
-			if ( '' !== $parcinq_value ) {
-				$parcinq_hero_credits[] = $parcinq_label . ': ' . $parcinq_value;
-			}
-		}
-	}
-
-	$parcinq_hero_has_title = '' !== $parcinq_hero_title_before || '' !== $parcinq_hero_title_emphasis || '' !== $parcinq_hero_title_after;
-
-	if ( '' === $parcinq_hero_kicker ) {
-		$parcinq_hero_kicker = $parcinq_hero_category ? $parcinq_hero_category->name : __( 'Article', 'parcinq-theme' );
-	}
-}
+$parcinq_hero_posts = array_slice( $parcinq_hero_posts, 0, 3 );
+$parcinq_track_posts( $parcinq_hero_posts );
 
 $parcinq_cover_data   = $parcinq_get_category_posts( 'cover-stories', 3 );
 $parcinq_cover_posts  = $parcinq_cover_data['posts'];
 $parcinq_track_posts( $parcinq_cover_posts );
 
-$parcinq_cityboy_data  = $parcinq_get_category_posts( 'city-boy', 1 );
-$parcinq_cityboy_posts = $parcinq_cityboy_data['posts'];
-$parcinq_track_posts( $parcinq_cityboy_posts );
 
 $parcinq_whats_new_posts = $parcinq_get_posts( array( 'posts_per_page' => 4 ) );
 $parcinq_track_posts( $parcinq_whats_new_posts );
@@ -207,50 +172,89 @@ $parcinq_videos_data  = $parcinq_get_category_posts( 'videos', 4 );
 $parcinq_videos_posts = $parcinq_videos_data['posts'];
 $parcinq_track_posts( $parcinq_videos_posts );
 
-$parcinq_cityboy_url = $parcinq_cityboy_data['category'] ? $parcinq_category_link( $parcinq_cityboy_data['category'] ) : '#';
-
-$parcinq_shop_page = get_page_by_path( 'shop' );
-$parcinq_shop_url  = $parcinq_shop_page instanceof WP_Post && 'publish' === $parcinq_shop_page->post_status ? get_permalink( $parcinq_shop_page ) : '#';
+$parcinq_whats_new_page = get_page_by_path( 'whats-new' );
+$parcinq_whats_new_url  = $parcinq_whats_new_page instanceof WP_Post && 'publish' === $parcinq_whats_new_page->post_status ? get_permalink( $parcinq_whats_new_page ) : home_url( '/whats-new/' );
 ?>
 <main id="primary" class="site-main">
 	<section class="hero" id="top">
-		<?php if ( $parcinq_hero_post ) : ?>
-			<a class="hero-media" href="<?php echo esc_url( get_permalink( $parcinq_hero_post ) ); ?>">
-				<?php if ( has_post_thumbnail( $parcinq_hero_post->ID ) ) : ?>
+		<?php if ( ! empty( $parcinq_hero_posts ) ) : ?>
+			<div class="hero-carousel">
+				<?php foreach ( $parcinq_hero_posts as $parcinq_index => $parcinq_hero_post ) : ?>
 					<?php
-					echo get_the_post_thumbnail(
-						$parcinq_hero_post->ID,
-						'full',
-						array(
-							'class' => 'hero-image',
-							'alt'   => the_title_attribute(
-								array(
-									'post' => $parcinq_hero_post->ID,
-									'echo' => false,
-								)
-							),
-						)
-					);
+					$parcinq_hero_category       = $parcinq_get_post_category( $parcinq_hero_post->ID );
+					$parcinq_hero_kicker         = '';
+					$parcinq_hero_title_before   = '';
+					$parcinq_hero_title_emphasis = '';
+					$parcinq_hero_title_after    = '';
+
+					if ( function_exists( 'get_field' ) ) {
+						$parcinq_hero_kicker         = trim( (string) get_field( 'hero_kicker', $parcinq_hero_post->ID ) );
+						$parcinq_hero_title_before   = trim( (string) get_field( 'hero_title_before', $parcinq_hero_post->ID ) );
+						$parcinq_hero_title_emphasis = trim( (string) get_field( 'hero_title_emphasis', $parcinq_hero_post->ID ) );
+						$parcinq_hero_title_after    = trim( (string) get_field( 'hero_title_after', $parcinq_hero_post->ID ) );
+					}
+
+					$parcinq_hero_has_title = '' !== $parcinq_hero_title_before || '' !== $parcinq_hero_title_emphasis || '' !== $parcinq_hero_title_after;
+
+					if ( '' === $parcinq_hero_kicker ) {
+						$parcinq_hero_kicker = $parcinq_hero_category ? $parcinq_hero_category->name : __( 'Article', 'parcinq-theme' );
+					}
 					?>
+					<div class="hero-slide<?php echo 0 === $parcinq_index ? ' active' : ''; ?>">
+						<a class="hero-media" href="<?php echo esc_url( get_permalink( $parcinq_hero_post ) ); ?>">
+							<?php if ( has_post_thumbnail( $parcinq_hero_post->ID ) ) : ?>
+								<?php
+								echo get_the_post_thumbnail(
+									$parcinq_hero_post->ID,
+									'full',
+									array(
+										'class' => 'hero-image',
+										'alt'   => the_title_attribute(
+											array(
+												'post' => $parcinq_hero_post->ID,
+												'echo' => false,
+											)
+										),
+									)
+								);
+								?>
+							<?php endif; ?>
+							<div class="hero-monogram">P5</div>
+							<div class="hero-grad"></div>
+							<div class="wrap hero-content reveal">
+								<span class="kicker"><?php echo esc_html( $parcinq_hero_kicker ); ?></span>
+								<h1>
+									<?php if ( $parcinq_hero_has_title ) : ?>
+										<?php if ( '' !== $parcinq_hero_title_before ) : ?><?php echo esc_html( $parcinq_hero_title_before ); ?><?php endif; ?><?php if ( '' !== $parcinq_hero_title_emphasis ) : ?><?php echo '' !== $parcinq_hero_title_before ? ' ' : ''; ?><em><?php echo esc_html( $parcinq_hero_title_emphasis ); ?></em><?php endif; ?><?php if ( '' !== $parcinq_hero_title_after ) : ?><?php echo ( '' !== $parcinq_hero_title_before || '' !== $parcinq_hero_title_emphasis ) ? ' ' : ''; ?><?php echo esc_html( $parcinq_hero_title_after ); ?><?php endif; ?>
+									<?php else : ?>
+										<?php echo esc_html( get_the_title( $parcinq_hero_post ) ); ?>
+									<?php endif; ?>
+								</h1>
+								<p><?php echo esc_html( $parcinq_trim_excerpt( $parcinq_hero_post, 22 ) ); ?></p>
+								<div class="byline">
+									<?php
+									printf(
+										/* translators: %s: Post author name. */
+										esc_html__( 'by %s', 'parcinq-theme' ),
+										esc_html( get_the_author_meta( 'display_name', $parcinq_hero_post->post_author ) )
+									);
+									?>
+								</div>
+								<span class="btn"><?php echo esc_html( 0 === $parcinq_index ? __( 'Enter the Story', 'parcinq-theme' ) : __( 'Read the Story', 'parcinq-theme' ) ); ?>
+									<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+								</span>
+							</div>
+						</a>
+					</div>
+				<?php endforeach; ?>
+				<?php if ( count( $parcinq_hero_posts ) > 1 ) : ?>
+					<div class="hero-dots">
+						<?php foreach ( $parcinq_hero_posts as $parcinq_index => $parcinq_hero_post ) : ?>
+							<button class="hero-dot<?php echo 0 === $parcinq_index ? ' active' : ''; ?>" data-slide="<?php echo esc_attr( (string) $parcinq_index ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Story %d', 'parcinq-theme' ), $parcinq_index + 1 ) ); ?>"></button>
+						<?php endforeach; ?>
+					</div>
 				<?php endif; ?>
-				<div class="hero-monogram">P5</div>
-				<div class="hero-grad"></div>
-				<div class="wrap hero-content reveal">
-					<span class="kicker"><?php echo esc_html( $parcinq_hero_kicker ); ?></span>
-					<h1>
-						<?php if ( $parcinq_hero_has_title ) : ?>
-							<?php if ( '' !== $parcinq_hero_title_before ) : ?><?php echo esc_html( $parcinq_hero_title_before ); ?><?php endif; ?><?php if ( '' !== $parcinq_hero_title_emphasis ) : ?><?php echo '' !== $parcinq_hero_title_before ? ' ' : ''; ?><em><?php echo esc_html( $parcinq_hero_title_emphasis ); ?></em><?php endif; ?><?php if ( '' !== $parcinq_hero_title_after ) : ?><?php echo ( '' !== $parcinq_hero_title_before || '' !== $parcinq_hero_title_emphasis ) ? ' ' : ''; ?><?php echo esc_html( $parcinq_hero_title_after ); ?><?php endif; ?>
-						<?php else : ?>
-							<?php echo esc_html( get_the_title( $parcinq_hero_post ) ); ?>
-						<?php endif; ?>
-					</h1>
-					<p><?php echo esc_html( $parcinq_trim_excerpt( $parcinq_hero_post, 22 ) ); ?></p>
-					<div class="byline"><?php echo esc_html( get_the_date( '', $parcinq_hero_post ) ); ?><?php if ( ! empty( $parcinq_hero_credits ) ) : ?> <?php echo esc_html( 'Â·' ); ?> <?php echo esc_html( implode( ' Â· ', $parcinq_hero_credits ) ); ?><?php endif; ?></div>
-					<span class="btn"><?php echo esc_html__( 'Enter the Story', 'parcinq-theme' ); ?>
-						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-					</span>
-				</div>
-			</a>
+			</div>
 		<?php else : ?>
 			<div class="hero-media">
 				<div class="hero-monogram">P5</div>
@@ -297,55 +301,16 @@ $parcinq_shop_url  = $parcinq_shop_page instanceof WP_Post && 'publish' === $par
 		</div>
 	</section>
 
-	<section class="franchise" id="cityboy">
-		<div class="fr-inner">
-			<div class="fr-media">
-				<?php if ( ! empty( $parcinq_cityboy_posts ) ) : ?>
-					<?php $parcinq_render_post_media( $parcinq_cityboy_posts[0]->ID, 'large', __( 'City Boy', 'parcinq-theme' ), 'fr-placeholder' ); ?>
-				<?php else : ?>
-					<div class="ph g5 fr-placeholder" data-label="<?php echo esc_attr__( 'City Boy', 'parcinq-theme' ); ?>"></div>
-				<?php endif; ?>
-				<div class="scrim"></div>
-			</div>
-			<div class="fr-text reveal">
-				<span class="kicker"><?php echo esc_html__( 'A PARCINQ Franchise', 'parcinq-theme' ); ?></span>
-				<div class="label"><?php echo esc_html__( 'City Boy', 'parcinq-theme' ); ?></div>
-				<?php if ( ! empty( $parcinq_cityboy_posts ) ) : ?>
-					<?php $parcinq_cityboy_chips = get_the_category( $parcinq_cityboy_posts[0]->ID ); ?>
-					<p><?php echo esc_html( $parcinq_trim_excerpt( $parcinq_cityboy_posts[0], 16 ) ); ?></p>
-					<?php if ( ! empty( $parcinq_cityboy_chips ) ) : ?>
-						<div class="fr-chips">
-							<?php foreach ( $parcinq_cityboy_chips as $parcinq_cityboy_chip ) : ?>
-								<span class="chip"><?php echo esc_html( $parcinq_cityboy_chip->name ); ?></span>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-					<a href="<?php echo esc_url( get_permalink( $parcinq_cityboy_posts[0] ) ); ?>" class="btn ghost"><?php echo esc_html__( 'Explore City Boy', 'parcinq-theme' ); ?></a>
-				<?php else : ?>
-					<?php $parcinq_cityboy_chips = $parcinq_cityboy_data['category'] ? get_categories( array( 'parent' => $parcinq_cityboy_data['category']->term_id, 'hide_empty' => false ) ) : array(); ?>
-					<p><?php echo esc_html__( 'City Boy stories will appear here once posts are assigned to the City Boy category.', 'parcinq-theme' ); ?></p>
-					<?php if ( ! empty( $parcinq_cityboy_chips ) ) : ?>
-						<div class="fr-chips">
-							<?php foreach ( $parcinq_cityboy_chips as $parcinq_cityboy_chip ) : ?>
-								<span class="chip"><?php echo esc_html( $parcinq_cityboy_chip->name ); ?></span>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-					<a href="<?php echo esc_url( $parcinq_cityboy_url ); ?>" class="btn ghost"><?php echo esc_html__( 'Explore City Boy', 'parcinq-theme' ); ?></a>
-				<?php endif; ?>
-			</div>
-		</div>
-	</section>
-
 	<section id="new">
 		<div class="wrap">
 			<div class="sec-head reveal">
 				<div><span class="kicker"><?php echo esc_html__( 'Fresh Off the Feed', 'parcinq-theme' ); ?></span><h2><?php echo esc_html__( "What's New", 'parcinq-theme' ); ?></h2></div>
+				<a href="<?php echo esc_url( $parcinq_whats_new_url ); ?>" class="seeall"><?php echo esc_html__( 'Latest', 'parcinq-theme' ); ?></a>
 			</div>
 			<div class="new-grid reveal">
 				<?php foreach ( $parcinq_whats_new_posts as $parcinq_post ) : ?>
 					<?php $parcinq_card_category = $parcinq_get_post_category( $parcinq_post->ID ); ?>
-					<a class="new-card" href="<?php echo esc_url( get_permalink( $parcinq_post ) ); ?>"><?php $parcinq_render_post_media( $parcinq_post->ID, 'medium_large', __( 'Article', 'parcinq-theme' ) ); ?><span class="ck"><?php echo esc_html( $parcinq_card_category ? $parcinq_card_category->name : __( 'Article', 'parcinq-theme' ) ); ?></span><h3><?php echo esc_html( get_the_title( $parcinq_post ) ); ?></h3><span class="by"><?php echo esc_html( get_the_date( '', $parcinq_post ) ); ?></span></a>
+					<a class="new-card" href="<?php echo esc_url( get_permalink( $parcinq_post ) ); ?>"><?php $parcinq_render_post_media( $parcinq_post->ID, 'medium_large', __( 'Article', 'parcinq-theme' ) ); ?><span class="ck"><?php echo esc_html( $parcinq_card_category ? $parcinq_card_category->name : __( 'Article', 'parcinq-theme' ) ); ?></span><h3><?php echo esc_html( get_the_title( $parcinq_post ) ); ?></h3><span class="by"><?php echo esc_html( get_the_author_meta( 'display_name', $parcinq_post->post_author ) ); ?></span></a>
 				<?php endforeach; ?>
 			</div>
 		</div>
@@ -403,7 +368,7 @@ $parcinq_shop_url  = $parcinq_shop_page instanceof WP_Post && 'publish' === $par
 			<div class="culture-grid reveal">
 				<?php foreach ( $parcinq_culture_posts as $parcinq_post ) : ?>
 					<?php $parcinq_card_category = $parcinq_get_post_category( $parcinq_post->ID ); ?>
-					<a class="new-card" href="<?php echo esc_url( get_permalink( $parcinq_post ) ); ?>"><?php $parcinq_render_post_media( $parcinq_post->ID, 'medium_large', __( 'Culture', 'parcinq-theme' ) ); ?><span class="ck"><?php echo esc_html( $parcinq_card_category ? $parcinq_card_category->name : __( 'Culture', 'parcinq-theme' ) ); ?></span><h3><?php echo esc_html( get_the_title( $parcinq_post ) ); ?></h3><span class="by"><?php echo esc_html( get_the_date( '', $parcinq_post ) ); ?></span></a>
+					<a class="new-card" href="<?php echo esc_url( get_permalink( $parcinq_post ) ); ?>"><?php $parcinq_render_post_media( $parcinq_post->ID, 'medium_large', __( 'Culture', 'parcinq-theme' ) ); ?><span class="ck"><?php echo esc_html( $parcinq_card_category ? $parcinq_card_category->name : __( 'Culture', 'parcinq-theme' ) ); ?></span><h3><?php echo esc_html( get_the_title( $parcinq_post ) ); ?></h3><span class="by"><?php echo esc_html( get_the_author_meta( 'display_name', $parcinq_post->post_author ) ); ?></span></a>
 				<?php endforeach; ?>
 			</div>
 		</div>
@@ -430,26 +395,10 @@ $parcinq_shop_url  = $parcinq_shop_page instanceof WP_Post && 'publish' === $par
 		</div>
 	</section>
 
-	<section id="shop">
-		<div class="wrap">
-			<div class="shop-head reveal">
-				<div><span class="kicker"><?php echo esc_html__( 'PARCINQ Marketplace', 'parcinq-theme' ); ?></span><h2><?php echo esc_html__( 'Shop', 'parcinq-theme' ); ?></h2></div>
-				<a href="<?php echo esc_url( $parcinq_shop_url ); ?>" class="seeall"><?php echo esc_html__( 'Visit the Store', 'parcinq-theme' ); ?></a>
-			</div>
-			<p class="shop-note reveal"><?php echo esc_html__( 'Collectible print objects, photocards and editorial merch. Product integration will be connected in a later phase.', 'parcinq-theme' ); ?></p>
-			<div class="shop-grid reveal">
-				<div class="product"><div class="ph" data-label="<?php echo esc_attr__( 'Product', 'parcinq-theme' ); ?>"></div><h3><?php echo esc_html__( 'Product preview', 'parcinq-theme' ); ?></h3><div class="price"><?php echo esc_html__( 'Coming soon', 'parcinq-theme' ); ?></div><div class="add"><?php echo esc_html__( '+ Add to Cart', 'parcinq-theme' ); ?></div></div>
-				<div class="product"><div class="ph" data-label="<?php echo esc_attr__( 'Product', 'parcinq-theme' ); ?>"></div><h3><?php echo esc_html__( 'Product preview', 'parcinq-theme' ); ?></h3><div class="price"><?php echo esc_html__( 'Coming soon', 'parcinq-theme' ); ?></div><div class="add"><?php echo esc_html__( '+ Add to Cart', 'parcinq-theme' ); ?></div></div>
-				<div class="product"><div class="ph" data-label="<?php echo esc_attr__( 'Product', 'parcinq-theme' ); ?>"></div><h3><?php echo esc_html__( 'Product preview', 'parcinq-theme' ); ?></h3><div class="price"><?php echo esc_html__( 'Coming soon', 'parcinq-theme' ); ?></div><div class="add"><?php echo esc_html__( '+ Add to Cart', 'parcinq-theme' ); ?></div></div>
-				<div class="product"><div class="ph" data-label="<?php echo esc_attr__( 'Product', 'parcinq-theme' ); ?>"></div><h3><?php echo esc_html__( 'Product preview', 'parcinq-theme' ); ?></h3><div class="price"><?php echo esc_html__( 'Coming soon', 'parcinq-theme' ); ?></div><div class="add"><?php echo esc_html__( '+ Add to Cart', 'parcinq-theme' ); ?></div></div>
-			</div>
-		</div>
-	</section>
-
 	<section class="news">
 		<div class="wrap reveal">
-			<span class="kicker"><?php echo esc_html__( "Don't Miss a Cover", 'parcinq-theme' ); ?></span>
-			<h2><?php echo esc_html__( 'Join the PARCINQ List', 'parcinq-theme' ); ?></h2>
+			<span class="kicker"><?php echo esc_html__( 'Become a CINQtizen', 'parcinq-theme' ); ?></span>
+			<h2><?php echo esc_html__( 'Join the CINQtizens', 'parcinq-theme' ); ?></h2>
 			<p><?php echo esc_html__( 'Covers, culture and the occasional secret drop, straight to your inbox. No noise.', 'parcinq-theme' ); ?></p>
 			<div class="news-form">
 				<input type="email" placeholder="<?php echo esc_attr__( 'your@email.com', 'parcinq-theme' ); ?>" aria-label="<?php echo esc_attr__( 'Email address', 'parcinq-theme' ); ?>">

@@ -5,6 +5,13 @@
  * @package Parcinq_Theme
  */
 
+$parcinq_header_logo_path = get_template_directory() . '/assets/images/parcinq-logo-black.png';
+$parcinq_header_logo_url  = get_template_directory_uri() . '/assets/images/parcinq-logo-black.png';
+
+if ( file_exists( $parcinq_header_logo_path ) ) {
+	$parcinq_header_logo_url = add_query_arg( 'ver', filemtime( $parcinq_header_logo_path ), $parcinq_header_logo_url );
+}
+
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -20,29 +27,29 @@
 	<div class="ticker" aria-label="<?php echo esc_attr__( 'Parcinq announcements', 'parcinq-theme' ); ?>">
 		<div class="top-ticker-track">
 			<div class="top-ticker-group">
-				<?php echo esc_html__( 'Now Live â€” Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<?php echo esc_html__( 'Now Live', 'parcinq-theme' ); ?> &mdash; <?php echo esc_html__( 'Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 			</div>
 
 			<div class="top-ticker-group" aria-hidden="true">
-				<?php echo esc_html__( 'Now Live â€” Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<?php echo esc_html__( 'Now Live', 'parcinq-theme' ); ?> &mdash; <?php echo esc_html__( 'Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 			</div>
 		</div>
 	</div>
@@ -110,7 +117,7 @@
 		</nav>
 
 		<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-			<img class="parcinq-logo-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-logo-black.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+			<img class="parcinq-logo-image" src="<?php echo esc_url( $parcinq_header_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 		</a>
 
 		<nav aria-label="<?php echo esc_attr__( 'Header right menu', 'parcinq-theme' ); ?>">
