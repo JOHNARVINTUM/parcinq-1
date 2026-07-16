@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600;700;800&display=swap");
+﻿@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Archivo:wght@400;500;600;700;800&display=swap");
 :root{
     --black:#111111;
     --white:#ffffff;
@@ -659,6 +659,307 @@
   @media(max-width:680px){
     .contact-page input[type="submit"],.contact-page button[type="submit"],.contact-page .wpforms-submit,.contact-page .wpcf7-submit,.contact-page .gform_button{width:100%}
   }
+
+/* ===== contact prototype refinement ===== */
+.contact-page {
+	padding-bottom: 0;
+}
+
+.contact-hero .inner {
+	max-width: 720px;
+}
+
+.contact-hero .ruleheavy {
+	margin-top: clamp(30px, 4vw, 46px);
+}
+
+.contact-grid {
+	align-items: start;
+	grid-template-columns: minmax(0, 1.3fr) minmax(280px, 1fr);
+	gap: clamp(36px, 5vw, 72px);
+	padding-top: clamp(40px, 6vw, 68px);
+	padding-bottom: clamp(52px, 7vw, 88px);
+}
+
+.contact-form-column,
+.contact-entry {
+	min-width: 0;
+}
+
+.contact-entry > *:first-child {
+	margin-top: 0;
+}
+
+.contact-page .form,
+.contact-page .contact-entry form,
+.contact-page .wpforms-container,
+.contact-page .wpcf7,
+.contact-page .gform_wrapper {
+	max-width: 760px;
+	margin-top: 0;
+}
+
+.contact-page .form label,
+.contact-page .contact-entry label,
+.contact-page .wpforms-field-label,
+.contact-page .gfield_label,
+.contact-page .wpcf7-form label {
+	display: block;
+	font-size: 11px;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #111;
+	margin: 18px 0 7px;
+}
+
+.contact-page .form label:first-child,
+.contact-page .contact-entry label:first-child {
+	margin-top: 0;
+}
+
+.contact-page input[type="text"],
+.contact-page input[type="email"],
+.contact-page input[type="tel"],
+.contact-page input[type="url"],
+.contact-page input[type="search"],
+.contact-page input[type="number"],
+.contact-page input[type="password"],
+.contact-page select,
+.contact-page textarea {
+	width: 100%;
+	border: 1px solid var(--gray-line);
+	border-radius: 0;
+	padding: 13px 15px;
+	font-family: var(--sans);
+	font-size: 15px;
+	line-height: 1.45;
+	color: #111;
+	background: #fff;
+	outline: none;
+	transition: border-color .2s, box-shadow .2s;
+}
+
+.contact-page textarea {
+	min-height: 150px;
+	resize: vertical;
+}
+
+.contact-page input:focus,
+.contact-page select:focus,
+.contact-page textarea:focus {
+	border-color: var(--pink);
+	box-shadow: 0 0 0 3px rgba(146,151,183,.16);
+}
+
+.contact-page input[type="submit"],
+.contact-page button[type="submit"],
+.contact-page .wpforms-submit,
+.contact-page .wpcf7-submit,
+.contact-page .gform_button {
+	margin-top: 22px;
+	background: var(--pink);
+	color: #111;
+	border: none;
+	border-radius: 0;
+	padding: 14px 32px;
+	font-family: var(--sans);
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background .2s, color .2s, transform .2s;
+}
+
+.contact-page input[type="submit"]:hover,
+.contact-page input[type="submit"]:focus-visible,
+.contact-page button[type="submit"]:hover,
+.contact-page button[type="submit"]:focus-visible,
+.contact-page .wpforms-submit:hover,
+.contact-page .wpforms-submit:focus-visible,
+.contact-page .wpcf7-submit:hover,
+.contact-page .wpcf7-submit:focus-visible,
+.contact-page .gform_button:hover,
+.contact-page .gform_button:focus-visible {
+	background: var(--peri-deep);
+	color: #fff;
+	transform: translateY(-1px);
+	outline: 2px solid var(--peri-deep);
+	outline-offset: 3px;
+}
+
+.contact-options {
+	border-left: 0;
+	padding-left: 0;
+}
+
+.contact-detail {
+	margin-bottom: 26px;
+}
+
+.contact-detail .k {
+	font-size: 11px;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: var(--peri-deep);
+	font-weight: 700;
+	margin-bottom: 6px;
+}
+
+.contact-detail a,
+.contact-detail p {
+	font-size: 16px;
+	line-height: 1.55;
+	color: #1f1f1f;
+	margin: 0;
+}
+
+.contact-detail a:hover,
+.contact-detail a:focus-visible {
+	color: var(--peri-deep);
+	outline: none;
+}
+
+.contact-detail a:focus-visible {
+	outline: 2px solid var(--pink);
+	outline-offset: 4px;
+}
+
+.contact-follow p {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 9px;
+	align-items: center;
+}
+
+.contact-follow span {
+	color: var(--ink-soft);
+}
+
+@media (max-width: 860px) {
+	.contact-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.contact-options {
+		border-top: 1px solid var(--gray-line);
+		padding-top: 28px;
+	}
+}
+
+@media (max-width: 680px) {
+	.contact-grid {
+		padding-left: 22px;
+		padding-right: 22px;
+	}
+
+	.contact-page input[type="submit"],
+	.contact-page button[type="submit"],
+	.contact-page .wpforms-submit,
+	.contact-page .wpcf7-submit,
+	.contact-page .gform_button {
+		width: 100%;
+	}
+}
+
+/* Stronger contact form overrides for plugin-rendered forms. */
+.contact-page .contact-entry,
+.contact-page .wpforms-container-full,
+.contact-page div.wpforms-container-full {
+	max-width: 760px;
+}
+
+.contact-page .wpforms-container-full .wpforms-field,
+.contact-page div.wpforms-container-full .wpforms-field {
+	padding: 0 0 18px;
+}
+
+.contact-page .required,
+.contact-page .wpforms-required-label {
+	color: #9b2f35;
+}
+
+.contact-page .wpforms-container-full .wpforms-field-label,
+.contact-page div.wpforms-container-full .wpforms-field-label {
+	font-size: 11px;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #111;
+	margin: 0 0 7px;
+}
+
+.contact-page .wpforms-container-full input[type="text"],
+.contact-page .wpforms-container-full input[type="email"],
+.contact-page .wpforms-container-full textarea,
+.contact-page div.wpforms-container-full input[type="text"],
+.contact-page div.wpforms-container-full input[type="email"],
+.contact-page div.wpforms-container-full textarea {
+	width: 100%;
+	max-width: 100%;
+	border: 1px solid var(--gray-line);
+	border-radius: 0;
+	box-shadow: none;
+	padding: 13px 15px;
+	font-family: var(--sans);
+	font-size: 15px;
+	line-height: 1.45;
+	color: #111;
+	background: #fff;
+}
+
+.contact-page .wpforms-container-full textarea,
+.contact-page div.wpforms-container-full textarea {
+	min-height: 150px;
+}
+
+.contact-page .wpforms-container-full input:focus,
+.contact-page .wpforms-container-full textarea:focus,
+.contact-page div.wpforms-container-full input:focus,
+.contact-page div.wpforms-container-full textarea:focus {
+	border-color: var(--pink);
+	box-shadow: 0 0 0 3px rgba(146,151,183,.16);
+}
+
+.contact-page .wpforms-container-full button[type="submit"],
+.contact-page .wpforms-container-full .wpforms-submit,
+.contact-page div.wpforms-container-full button[type="submit"],
+.contact-page div.wpforms-container-full .wpforms-submit,
+.contact-page .contact-prototype-form button[type="submit"] {
+	margin-top: 22px;
+	background: var(--pink);
+	color: #111;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	padding: 14px 32px;
+	font-family: var(--sans);
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: .14em;
+	line-height: 1.2;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background .2s, color .2s, transform .2s;
+}
+
+.contact-page .wpforms-container-full button[type="submit"]:hover,
+.contact-page .wpforms-container-full button[type="submit"]:focus-visible,
+.contact-page .wpforms-container-full .wpforms-submit:hover,
+.contact-page .wpforms-container-full .wpforms-submit:focus-visible,
+.contact-page div.wpforms-container-full button[type="submit"]:hover,
+.contact-page div.wpforms-container-full button[type="submit"]:focus-visible,
+.contact-page div.wpforms-container-full .wpforms-submit:hover,
+.contact-page div.wpforms-container-full .wpforms-submit:focus-visible,
+.contact-page .contact-prototype-form button[type="submit"]:hover,
+.contact-page .contact-prototype-form button[type="submit"]:focus-visible {
+	background: var(--peri-deep);
+	color: #fff;
+	transform: translateY(-1px);
+	outline: 2px solid var(--peri-deep);
+	outline-offset: 3px;
+}
   /* ===== about page compatibility ===== */
   .about-page{padding-bottom:0}
   .about-content{padding-bottom:clamp(24px,4vw,44px)}
@@ -1186,4 +1487,22 @@
 		margin-bottom: 18px;
 	}
 }
+
+
+.contact-page .contact-hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.contact-page .form-message p {
+	margin: 0 0 6px;
+}
+
+.contact-page .form-message p:last-child {
+	margin-bottom: 0;
+}
+
 
