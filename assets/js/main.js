@@ -1,4 +1,4 @@
-const hdr=document.querySelector('header');
+﻿const hdr=document.querySelector('header');
   const onScroll=()=>hdr&&hdr.classList.toggle('scrolled', window.scrollY>120);
   onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
@@ -15,7 +15,7 @@ const hdr=document.querySelector('header');
   const countdown = document.getElementById('countdown');
   if (!countdown) return;
 
-  const launchTarget = countdown.dataset.launchTarget || '2026-07-17T00:00:00+08:00';
+  const launchTarget = countdown.dataset.launchTarget || '2026-07-17T01:00:00+08:00';
   const target = new Date(launchTarget).getTime();
   const days = document.getElementById('cd-days');
   const hours = document.getElementById('cd-hours');

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Site-wide launch curtain controls.
  *
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function parcinq_launch_curtain_target_iso() {
-	return '2026-07-17T00:00:00+08:00';
+	return '2026-07-17T01:00:00+08:00';
 }
 
 /**
@@ -24,7 +24,7 @@ function parcinq_launch_curtain_target_iso() {
  * @return int
  */
 function parcinq_launch_curtain_timestamp() {
-	return strtotime( '2026-07-16 16:00:00 UTC' );
+	return strtotime( '2026-07-16 17:00:00 UTC' );
 }
 
 /**
