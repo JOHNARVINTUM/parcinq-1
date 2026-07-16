@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Site-wide launch curtain controls.
  *
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function parcinq_launch_curtain_target_iso() {
-	return '2026-07-17T01:00:00+08:00';
+	return '2026-07-17T12:00:00+08:00';
 }
 
 /**
@@ -24,7 +24,7 @@ function parcinq_launch_curtain_target_iso() {
  * @return int
  */
 function parcinq_launch_curtain_timestamp() {
-	return strtotime( '2026-07-16 17:00:00 UTC' );
+	return strtotime( '2026-07-17 04:00:00 UTC' );
 }
 
 /**
@@ -35,11 +35,23 @@ function parcinq_launch_curtain_timestamp() {
 function parcinq_should_show_launch_curtain() {
 	global $pagenow;
 
-	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+	$parcinq_request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) : 'GET';
+	$parcinq_request_uri    = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$parcinq_request_path   = wp_parse_url( $parcinq_request_uri, PHP_URL_PATH );
+
+	if ( 'GET' !== $parcinq_request_method && 'HEAD' !== $parcinq_request_method ) {
 		return false;
 	}
 
-	if ( 'wp-login.php' === $pagenow ) {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) ) {
+		return false;
+	}
+
+	if ( 'wp-login.php' === $pagenow || 'wp-cron.php' === $pagenow ) {
+		return false;
+	}
+
+	if ( $parcinq_request_path && preg_match( '#/(wp-json|wp-admin|wp-login\.php|xmlrpc\.php|wp-cron\.php)(/|$)#', $parcinq_request_path ) ) {
 		return false;
 	}
 

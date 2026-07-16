@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Template for the Advertise page.
  *

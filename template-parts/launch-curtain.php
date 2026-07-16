@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Site-wide launch curtain.
  *
@@ -36,10 +36,10 @@ $parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso
 			<img class="coming-soon-logo" src="<?php echo esc_url( $parcinq_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 			<div class="coming-soon-kicker"><?php echo esc_html__( 'Coming Soon', 'parcinq-theme' ); ?></div>
 			<h1 id="coming-soon-title" class="coming-soon-title">
-				<span><?php echo esc_html__( 'Something New', 'parcinq-theme' ); ?></span>
-				<span class="em"><?php echo esc_html__( 'Is On the Way', 'parcinq-theme' ); ?></span>
+				<span><?php echo esc_html__( 'Oh no,', 'parcinq-theme' ); ?></span>
+				<span class="em"><?php echo esc_html__( 'We are having technical difficulties', 'parcinq-theme' ); ?></span>
 			</h1>
-			<p class="coming-soon-sub"><?php echo esc_html__( 'We are refreshing PARCINQ from the ground up. A new home for Music, Style, and Culture is almost here.', 'parcinq-theme' ); ?></p>
+			<p class="coming-soon-sub"><?php echo esc_html__( 'We are working on it now and will be back shortly.', 'parcinq-theme' ); ?></p>
 
 			<div class="coming-soon-countdown" id="countdown" data-launch-url="<?php echo esc_url( $parcinq_launch_url ); ?>" data-launch-delay="<?php echo esc_attr( (string) $parcinq_launch_delay_ms ); ?>" data-launch-target="<?php echo esc_attr( $parcinq_launch_target_iso ); ?>" aria-label="<?php echo esc_attr__( 'Countdown to launch', 'parcinq-theme' ); ?>">
 				<div class="coming-soon-cd-block"><span class="coming-soon-cd-num" id="cd-days">00</span><span class="coming-soon-cd-label"><?php echo esc_html__( 'Days', 'parcinq-theme' ); ?></span></div>
@@ -65,8 +65,8 @@ $parcinq_launch_target_iso = function_exists( 'parcinq_launch_curtain_target_iso
 			</nav>
 		</div>
 		<footer class="coming-soon-footer">
-			<span><?php echo esc_html( 'Â© 2026. Big Picture Asia Inc.' ); ?></span>
-			<span class="coming-soon-dot" aria-hidden="true">Â·</span><a href="#"><?php echo esc_html__( 'Privacy', 'parcinq-theme' ); ?></a><span class="coming-soon-dot" aria-hidden="true">Â·</span><a href="#"><?php echo esc_html__( 'Terms', 'parcinq-theme' ); ?></a>
+			<span><?php echo esc_html( 'Ã‚Â© 2026. Big Picture Asia Inc.' ); ?></span>
+			<span class="coming-soon-dot" aria-hidden="true">Ã‚Â·</span><a href="#"><?php echo esc_html__( 'Privacy', 'parcinq-theme' ); ?></a><span class="coming-soon-dot" aria-hidden="true">Ã‚Â·</span><a href="#"><?php echo esc_html__( 'Terms', 'parcinq-theme' ); ?></a>
 		</footer>
 	</section>
 </main>

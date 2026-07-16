@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Newsletter signup storage and form handling.
  *
