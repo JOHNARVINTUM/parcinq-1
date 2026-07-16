@@ -40,3 +40,16 @@ function parcinq_theme_setup() {
 	);
 }
 add_action( 'after_setup_theme', 'parcinq_theme_setup' );
+/**
+ * Sets the browser tab title.
+ *
+ * @param array $parts Document title parts.
+ * @return array
+ */
+function parcinq_document_title( $parts ) {
+	$parts['title'] = __( 'PARCINQ | The Voice of Asian Pop Culture', 'parcinq-theme' );
+	unset( $parts['site'], $parts['tagline'] );
+
+	return $parts;
+}
+add_filter( 'document_title_parts', 'parcinq_document_title' );
