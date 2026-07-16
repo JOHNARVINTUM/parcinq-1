@@ -23,38 +23,6 @@ if ( file_exists( $parcinq_header_logo_path ) ) {
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div class="topbar">
-	<div class="ticker" aria-label="<?php echo esc_attr__( 'Parcinq announcements', 'parcinq-theme' ); ?>">
-		<div class="top-ticker-track">
-			<div class="top-ticker-group">
-				<?php echo esc_html__( 'Now Live', 'parcinq-theme' ); ?> &mdash; <?php echo esc_html__( 'Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-			</div>
-
-			<div class="top-ticker-group" aria-hidden="true">
-				<?php echo esc_html__( 'Now Live', 'parcinq-theme' ); ?> &mdash; <?php echo esc_html__( 'Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">&middot;</span>
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="drawer-back" id="drawerBack"></div>
 <aside class="drawer" id="drawer">
 	<button class="x" id="drawerClose" aria-label="<?php echo esc_attr__( 'Close menu', 'parcinq-theme' ); ?>">&times;</button>

@@ -8,6 +8,42 @@
 get_header();
 
 $parcinq_category = get_queried_object();
+$parcinq_empty_states = array(
+	'videos' => array(
+		'kicker' => __( 'Rolling Soon', 'parcinq-theme' ),
+		'title'  => __( 'Our Newest Vertical Is Almost Live', 'parcinq-theme' ),
+		'copy'   => __( 'PARCINQ Videos is our newest vertical, and it is almost here. Think behind-the-scenes films, candid interviews, and the moments that never make the page, the kind of thing you will want to watch on repeat. We are keeping the details under wraps a little longer. Premieres are coming, be a CINQtizen to get first dibs on every drop.', 'parcinq-theme' ),
+	),
+	'sports' => array(
+		'kicker' => __( 'Warming Up', 'parcinq-theme' ),
+		'title'  => __( 'Game On, Very Soon', 'parcinq-theme' ),
+		'copy'   => __( 'PARCINQ Sports is where athletes meet pop culture: the crossover moments, the tunnel fits, and the personalities blurring the line between the court and the culture. Expect profiles, style, and the stories the highlight reels leave out. Kickoff is close, be a CINQtizen to catch the very first play.', 'parcinq-theme' ),
+	),
+	'gaming' => array(
+		'kicker' => __( 'Now Loading', 'parcinq-theme' ),
+		'title'  => __( 'Press Start, Soon', 'parcinq-theme' ),
+		'copy'   => __( 'PARCINQ Gaming is where idols, esports, and fandom collide. The titles everyone is playing, the creators shaping the scene, cosplay as editorial, and the whole culture around the controller. New drops are incoming, join the CINQtizens to be first in the lobby.', 'parcinq-theme' ),
+	),
+	'food'   => array(
+		'kicker' => __( 'Still Cooking', 'parcinq-theme' ),
+		'title'  => __( 'We Are Still Setting the Table', 'parcinq-theme' ),
+		'copy'   => __( 'PARCINQ Food is where taste meets culture: where the scene eats after hours, the tables worth the wait, the chefs to know, and the dishes everyone will be talking about. Part guide, part obsession. We are still setting the table, so save room. First servings drop soon, become a CINQtizen to get first dibs.', 'parcinq-theme' ),
+	),
+	'film'   => array(
+		'kicker' => __( 'Coming Soon', 'parcinq-theme' ),
+		'title'  => __( 'The Reel Is Loading', 'parcinq-theme' ),
+		'copy'   => __( "PARCINQ Film is where coming-of-age stories, the directors to watch, festival buzz, and the movies defining a generation of Filipino and Asian cinema all live. Reviews, interviews, and the watchlist you didn't know you needed are on the way. First features premiere soon, become a CINQtizen to get first dibs.", 'parcinq-theme' ),
+	),
+);
+$parcinq_empty_state = array(
+	'kicker' => __( 'Coming Soon', 'parcinq-theme' ),
+	'title'  => __( 'Stories Are Loading', 'parcinq-theme' ),
+	'copy'   => __( 'This PARCINQ section is almost ready. Check back soon for new stories, profiles, and culture dispatches.', 'parcinq-theme' ),
+);
+
+if ( $parcinq_category instanceof WP_Term && isset( $parcinq_empty_states[ $parcinq_category->slug ] ) ) {
+	$parcinq_empty_state = $parcinq_empty_states[ $parcinq_category->slug ];
+}
 ?>
 
 <main id="primary" class="site-main">
@@ -115,13 +151,11 @@ $parcinq_category = get_queried_object();
 			);
 			?>
 		<?php else : ?>
-			<div class="index-head reveal">
-				<div>
-					<div class="k"><?php echo esc_html__( 'Archive', 'parcinq-theme' ); ?></div>
-					<h2><?php echo esc_html__( 'No posts found.', 'parcinq-theme' ); ?></h2>
-				</div>
-			</div>
-			<p class="archive-empty"><?php echo esc_html__( 'There are no posts in this category yet.', 'parcinq-theme' ); ?></p>
+			<section class="empty-state category-empty-state reveal" aria-labelledby="category-empty-title">
+				<span class="kicker"><?php echo esc_html( $parcinq_empty_state['kicker'] ); ?></span>
+				<h2 id="category-empty-title"><?php echo esc_html( $parcinq_empty_state['title'] ); ?></h2>
+				<p><?php echo esc_html( $parcinq_empty_state['copy'] ); ?></p>
+			</section>
 		<?php endif; ?>
 	</div>
 </main>

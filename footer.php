@@ -48,24 +48,6 @@ $parcinq_read_links = array(
 	),
 );
 
-$parcinq_shop_page = get_page_by_path( 'shop' );
-$parcinq_shop_url  = $parcinq_shop_page instanceof WP_Post && 'publish' === $parcinq_shop_page->post_status ? get_permalink( $parcinq_shop_page ) : home_url( '/shop/' );
-
-$parcinq_franchise_links = array(
-	array(
-		'label' => __( 'Boys of Summer', 'parcinq-theme' ),
-		'url'   => $parcinq_get_category_url( 'boys-of-summer', 'cover-stories' ),
-	),
-	array(
-		'label' => __( 'Videos', 'parcinq-theme' ),
-		'url'   => $parcinq_get_category_url( 'videos' ),
-	),
-	array(
-		'label' => __( 'Shop', 'parcinq-theme' ),
-		'url'   => $parcinq_shop_url,
-	),
-);
-
 $parcinq_footer_logo_path = get_template_directory() . '/assets/images/parcinq-logo-white.png';
 $parcinq_footer_logo_url  = get_template_directory_uri() . '/assets/images/parcinq-logo-white.png';
 
@@ -110,15 +92,6 @@ $parcinq_social_links = array(
 				<h4><?php echo esc_html__( 'Read', 'parcinq-theme' ); ?></h4>
 				<ul class="foot-menu">
 					<?php foreach ( $parcinq_read_links as $parcinq_link ) : ?>
-						<li><a href="<?php echo esc_url( $parcinq_link['url'] ); ?>"><?php echo esc_html( $parcinq_link['label'] ); ?></a></li>
-					<?php endforeach; ?>
-				</ul>
-			</nav>
-
-			<nav class="foot-col" aria-label="<?php echo esc_attr__( 'Franchises', 'parcinq-theme' ); ?>">
-				<h4><?php echo esc_html__( 'Franchises', 'parcinq-theme' ); ?></h4>
-				<ul class="foot-menu">
-					<?php foreach ( $parcinq_franchise_links as $parcinq_link ) : ?>
 						<li><a href="<?php echo esc_url( $parcinq_link['url'] ); ?>"><?php echo esc_html( $parcinq_link['label'] ); ?></a></li>
 					<?php endforeach; ?>
 				</ul>
