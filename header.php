@@ -66,7 +66,7 @@ if ( file_exists( $parcinq_header_logo_path ) ) {
 <header>
 	<div class="wrap nav">
 		<div class="util l">
-			<button class="burger" id="burger" type="button" aria-label="<?php echo esc_attr__( 'Open menu', 'parcinq-theme' ); ?>">
+			<button class="burger" id="burger" type="button" aria-label="<?php echo esc_attr__( 'Open menu', 'parcinq-theme' ); ?>" aria-expanded="false">
 				<span></span><span></span><span></span>
 			</button>
 		</div>

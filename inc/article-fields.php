@@ -101,10 +101,10 @@ function parcinq_register_article_hero_fields() {
 				),
 				array(
 					'key'           => 'field_parcinq_stylist',
-					'label'         => 'Stylist',
+					'label'         => 'Words',
 					'name'          => 'stylist',
 					'type'          => 'text',
-					'instructions'  => 'Plain text only. Do not enter HTML.',
+					'instructions'  => 'Enter the name of the writer or contributor.',
 					'required'      => 0,
 					'wrapper'       => array( 'width' => '', 'class' => '', 'id' => '' ),
 					'default_value' => '',

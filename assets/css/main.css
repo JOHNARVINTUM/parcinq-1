@@ -99,8 +99,10 @@
   .util.l{left:0}
   .util.r{right:0}
   .icon-btn{width:19px;height:19px;stroke:#222;cursor:pointer}
-  .burger{display:flex;flex-direction:column;gap:5px;cursor:pointer}
+  .burger{appearance:none;-webkit-appearance:none;display:flex;flex-direction:column;gap:5px;cursor:pointer;border:0;background:transparent;box-shadow:none;padding:0;margin:0;color:inherit;font:inherit}
   .burger span{width:22px;height:2px;background:#111}
+  .burger:hover span{background:var(--peri-deep)}
+  .burger:focus-visible{outline:2px solid var(--peri-deep);outline-offset:5px}
 
   /* ---------- hero ---------- */
   .hero{position:relative;background:var(--black);color:#fff;overflow:hidden;padding:0;margin:0}

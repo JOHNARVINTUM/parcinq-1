@@ -38,7 +38,7 @@ $parcinq_has_custom_title = '' !== $parcinq_title_before || '' !== $parcinq_titl
 $parcinq_credit_fields = array(
 	'photographer'       => __( 'Photography', 'parcinq-theme' ),
 	'art_director'       => __( 'Art Direction', 'parcinq-theme' ),
-	'stylist'            => __( 'By', 'parcinq-theme' ),
+	'stylist'            => __( 'Words', 'parcinq-theme' ),
 	'additional_credits' => __( 'Additional Credits', 'parcinq-theme' ),
 );
 $parcinq_credits = array();
@@ -139,7 +139,7 @@ if ( count( $parcinq_related_ids ) < 3 ) {
 							esc_html( $parcinq_credit['value'] )
 						);
 					}
-					echo esc_html( implode( ' Â· ', $parcinq_credit_output ) );
+					echo esc_html( implode( ' Ã‚Â· ', $parcinq_credit_output ) );
 					?>
 				</div>
 			<?php endif; ?>
