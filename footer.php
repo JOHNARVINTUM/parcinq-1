@@ -69,23 +69,23 @@ $parcinq_franchise_links = array(
 $parcinq_social_links = array(
 	array(
 		'label' => __( 'Facebook', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://facebook.com/parcinqmagazine',
 	),
 	array(
 		'label' => __( 'Instagram', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://instagram.com/parcinqmagazine',
 	),
 	array(
 		'label' => __( 'X', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://x.com/parcinqmagazine',
 	),
 	array(
 		'label' => __( 'TikTok', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://www.tiktok.com/@parcinqmagazine',
 	),
 	array(
 		'label' => __( 'YouTube', 'parcinq-theme' ),
-		'url'   => '#',
+		'url'   => 'https://www.youtube.com/@ParcinqMagazine',
 	),
 );
 ?>
@@ -137,7 +137,7 @@ $parcinq_social_links = array(
 			<span>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html__( 'PARCINQ. All rights reserved. Big Picture Asia Inc.', 'parcinq-theme' ); ?></span>
 			<nav class="socials" aria-label="<?php echo esc_attr__( 'Social links', 'parcinq-theme' ); ?>">
 				<?php foreach ( $parcinq_social_links as $parcinq_link ) : ?>
-					<a href="<?php echo esc_url( $parcinq_link['url'] ); ?>"><?php echo esc_html( $parcinq_link['label'] ); ?></a>
+					<a href="<?php echo esc_url( $parcinq_link['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $parcinq_link['label'] ); ?></a>
 				<?php endforeach; ?>
 			</nav>
 		</div>
