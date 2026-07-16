@@ -1,9 +1,16 @@
-﻿<?php
+<?php
 /**
  * Theme header.
  *
  * @package Parcinq_Theme
  */
+
+$parcinq_header_logo_path = get_template_directory() . '/assets/images/parcinq-logo-black.png';
+$parcinq_header_logo_url  = get_template_directory_uri() . '/assets/images/parcinq-logo-black.png';
+
+if ( file_exists( $parcinq_header_logo_path ) ) {
+	$parcinq_header_logo_url = add_query_arg( 'ver', filemtime( $parcinq_header_logo_path ), $parcinq_header_logo_url );
+}
 
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
@@ -110,7 +117,7 @@
 		</nav>
 
 		<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-			<img class="parcinq-logo-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-logo-black.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+			<img class="parcinq-logo-image" src="<?php echo esc_url( $parcinq_header_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 		</a>
 
 		<nav aria-label="<?php echo esc_attr__( 'Header right menu', 'parcinq-theme' ); ?>">

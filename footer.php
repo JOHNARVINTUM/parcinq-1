@@ -66,6 +66,13 @@ $parcinq_franchise_links = array(
 	),
 );
 
+$parcinq_footer_logo_path = get_template_directory() . '/assets/images/parcinq-logo-white.png';
+$parcinq_footer_logo_url  = get_template_directory_uri() . '/assets/images/parcinq-logo-white.png';
+
+if ( file_exists( $parcinq_footer_logo_path ) ) {
+	$parcinq_footer_logo_url = add_query_arg( 'ver', filemtime( $parcinq_footer_logo_path ), $parcinq_footer_logo_url );
+}
+
 $parcinq_social_links = array(
 	array(
 		'label' => __( 'Facebook', 'parcinq-theme' ),
@@ -94,7 +101,7 @@ $parcinq_social_links = array(
 		<div class="foot-top">
 			<div class="foot-brand">
 				<a class="foot-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-					<img class="foot-logo-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-logo-white.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+					<img class="foot-logo-image" src="<?php echo esc_url( $parcinq_footer_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 				</a>
 				<p><?php echo esc_html__( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' ); ?></p>
 			</div>
