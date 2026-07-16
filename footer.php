@@ -94,7 +94,7 @@ $parcinq_social_links = array(
 		<div class="foot-top">
 			<div class="foot-brand">
 				<a class="foot-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-					<img class="foot-logo-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-coming-soon-logo.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+					<img class="foot-logo-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/parcinq-logo-white.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 				</a>
 				<p><?php echo esc_html__( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' ); ?></p>
 			</div>
