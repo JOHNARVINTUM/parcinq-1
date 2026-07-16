@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Theme header.
  *
@@ -20,29 +20,29 @@
 	<div class="ticker" aria-label="<?php echo esc_attr__( 'Parcinq announcements', 'parcinq-theme' ); ?>">
 		<div class="top-ticker-track">
 			<div class="top-ticker-group">
-				<?php echo esc_html__( 'Now Live â€” Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<?php echo esc_html__( 'Now Live', 'parcinq-theme' ); ?> &mdash; <?php echo esc_html__( 'Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 			</div>
 
 			<div class="top-ticker-group" aria-hidden="true">
-				<?php echo esc_html__( 'Now Live â€” Boys of Summer 2026', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<?php echo esc_html__( 'Now Live', 'parcinq-theme' ); ?> &mdash; <?php echo esc_html__( 'Boys of Summer 2026', 'parcinq-theme' ); ?>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Eight covers, one shore', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'New issue out now', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'CINQ Season Two streaming', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 				<?php echo esc_html__( 'Subscribe to the PARCINQ list', 'parcinq-theme' ); ?>
-				<span aria-hidden="true">Â·</span>
+				<span aria-hidden="true">&middot;</span>
 			</div>
 		</div>
 	</div>
