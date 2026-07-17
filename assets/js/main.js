@@ -1,4 +1,4 @@
-﻿const hdr=document.querySelector('header');
+const hdr=document.querySelector('header');
   const onScroll=()=>hdr&&hdr.classList.toggle('scrolled', window.scrollY>120);
   onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.1});
@@ -111,4 +111,98 @@
 
   showSlide(activeIndex);
   start();
+}());
+// Shared CINQtizen newsletter modal.
+(function () {
+  const modal = document.getElementById('cinqNewsletterModal');
+  if (!modal) return;
+
+  const panel = modal.querySelector('.cinq-modal-panel');
+  const form = modal.querySelector('[data-cinq-modal-form]');
+  const email = form ? form.querySelector('input[type="email"]') : null;
+  const status = modal.querySelector('[data-cinq-modal-status]');
+  const content = modal.querySelector('[data-cinq-modal-content]');
+  const success = modal.querySelector('[data-cinq-modal-success]');
+  const submit = form ? form.querySelector('button[type="submit"]') : null;
+  let lastFocus = null;
+
+  const setStatus = (message) => {
+    if (status) status.textContent = message || '';
+  };
+
+  const open = () => {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    modal.classList.add('open');
+    document.body.classList.add('cinq-modal-open');
+    if (content) content.hidden = false;
+    if (success) success.hidden = true;
+    setStatus('');
+    window.setTimeout(() => email && email.focus(), 30);
+  };
+
+  const close = () => {
+    modal.classList.remove('open');
+    modal.hidden = true;
+    document.body.classList.remove('cinq-modal-open');
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  };
+
+  document.querySelectorAll('[data-cinq-modal-open]').forEach((trigger) => {
+    trigger.addEventListener('click', open);
+  });
+
+  modal.querySelectorAll('[data-cinq-modal-close]').forEach((button) => {
+    button.addEventListener('click', close);
+  });
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) close();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) close();
+  });
+
+  if (form) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const config = window.parcinqNewsletter || {};
+      const formData = new FormData(form);
+      formData.append('action', 'parcinq_newsletter_signup');
+      formData.append('nonce', config.nonce || '');
+
+      if (submit) submit.disabled = true;
+      setStatus('');
+
+      try {
+        const response = await fetch(config.ajaxUrl || '/wp-admin/admin-ajax.php', {
+          method: 'POST',
+          credentials: 'same-origin',
+          body: formData
+        });
+        const payload = await response.json();
+        const data = payload && payload.data ? payload.data : {};
+
+        if (!payload.success) {
+          setStatus(data.message || (config.messages && config.messages.server) || 'Something went wrong. Please try again.');
+          return;
+        }
+
+        if (data.code === 'duplicate') {
+          setStatus(data.message || 'You’re already on the list.');
+          return;
+        }
+
+        if (content) content.hidden = true;
+        if (success) success.hidden = false;
+        form.reset();
+        if (panel && typeof panel.focus === 'function') panel.focus();
+      } catch (error) {
+        setStatus((config.messages && config.messages.server) || 'Something went wrong. Please try again.');
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+    });
+  }
 }());

@@ -32,10 +32,11 @@ function parcinq_register_contributor_profile_fields() {
 					'library'       => 'all',
 				),
 				array(
-					'key'   => 'field_parcinq_contributor_role',
-					'label' => 'Contributor Role',
-					'name'  => 'parcinq_contributor_role',
-					'type'  => 'text',
+					'key'          => 'field_parcinq_contributor_role',
+					'label'        => 'Author Title',
+					'name'         => 'parcinq_contributor_role',
+					'type'         => 'text',
+					'instructions' => 'Enter the author role or title shown on articles and author pages.',
 				),
 				array(
 					'key'       => 'field_parcinq_author_bio',

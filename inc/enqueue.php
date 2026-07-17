@@ -50,5 +50,18 @@ function parcinq_enqueue_assets() {
 		parcinq_asset_version( 'assets/js/main.js' ),
 		true
 	);
+
+	wp_localize_script(
+		'parcinq-main',
+		'parcinqNewsletter',
+		array(
+			'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+			'nonce'    => wp_create_nonce( 'parcinq_newsletter_signup' ),
+			'messages' => array(
+				'invalid' => __( 'Please enter a valid email address.', 'parcinq-theme' ),
+				'server'  => __( 'Something went wrong. Please try again.', 'parcinq-theme' ),
+			),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'parcinq_enqueue_assets' );

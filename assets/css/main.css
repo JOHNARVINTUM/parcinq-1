@@ -486,8 +486,9 @@
   .na-share a:hover,.na-share a:focus{background:var(--pink);color:#fff}
   .na-share svg{width:16px;height:16px;fill:currentColor}
   .na-hero{margin:22px 0 6px}
-  .na-hero .ph{aspect-ratio:16/10;position:relative}
-  .na-hero-image{width:100%;height:100%;object-fit:cover}
+  .na-hero .ph{position:relative}
+  .na-hero .na-hero-placeholder{aspect-ratio:16/10}
+  .na-hero-image{display:block;width:100%;height:auto;object-fit:initial}
   .na-hero figcaption,.na-fig figcaption,.na-body figcaption{font-size:12px;color:var(--ink-soft);letter-spacing:.05em;margin-top:10px;text-transform:uppercase}
   .na-body{padding-top:22px}
   .na-body p{font-size:18px;line-height:1.8;color:#1c1c1c;margin-bottom:24px}
@@ -1551,3 +1552,25 @@ body.parcinq-coming-soon-body {
 
 
 
+
+/* ---------- CINQtizen newsletter modal ---------- */
+.category-empty-state .cinq-modal-trigger{margin-top:28px}
+.cinq-modal-open{overflow:hidden}
+.cinq-modal-backdrop{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(11,11,12,.62);backdrop-filter:blur(10px)}
+.cinq-modal-backdrop.open{display:flex}
+.cinq-modal-panel{position:relative;width:min(100%,640px);padding:clamp(34px,5vw,58px);background:#f5f3ef;color:var(--ink);box-shadow:0 26px 80px rgba(0,0,0,.28);text-align:center}
+.cinq-modal-close{position:absolute;top:14px;right:14px;appearance:none;-webkit-appearance:none;border:0;background:transparent;color:inherit;font:inherit;font-size:30px;line-height:1;cursor:pointer;padding:8px}
+.cinq-modal-close:focus-visible{outline:2px solid var(--peri);outline-offset:3px}
+.cinq-modal-kicker{display:block;margin-bottom:10px;color:var(--peri-deep);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.cinq-modal-panel h2{margin:0;font-family:var(--serif);font-size:clamp(38px,5vw,68px);font-weight:500;line-height:.98;letter-spacing:-.02em}
+.cinq-modal-panel p{margin:18px auto 0;max-width:470px;color:#3f3f42;font-size:16px;line-height:1.7}
+.cinq-modal-form{display:flex;margin:30px auto 0;max-width:500px;background:#fff;border:1px solid rgba(17,17,18,.18)}
+.cinq-modal-form input[type="email"]{min-width:0;flex:1;border:0;background:#fff;padding:16px 18px;font:500 14px/1 var(--sans);color:var(--ink);outline:0}
+.cinq-modal-form input[type="email"]:focus{box-shadow:inset 0 0 0 2px var(--peri)}
+.cinq-modal-form button{appearance:none;-webkit-appearance:none;border:0;background:var(--black);color:#fff;padding:0 26px;font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.cinq-modal-form button:hover,.cinq-modal-form button:focus-visible{background:var(--peri-deep);outline:2px solid var(--peri);outline-offset:3px}
+.cinq-modal-form button:disabled{cursor:wait;opacity:.72}
+.cinq-modal-fine{font-size:12px!important;color:#666!important}
+.cinq-modal-status{min-height:1.4em;font-size:13px!important;color:var(--peri-deep)!important;font-weight:700}
+.cinq-modal-success[hidden]{display:none}
+@media (max-width:640px){.cinq-modal-backdrop{padding:16px}.cinq-modal-panel{text-align:left;padding:34px 22px}.cinq-modal-form{flex-direction:column}.cinq-modal-form button{padding:16px 18px}.cinq-modal-panel p{margin-left:0;margin-right:0}}

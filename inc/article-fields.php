@@ -40,6 +40,16 @@ function parcinq_register_article_hero_fields() {
 					'wrapper'       => array( 'width' => '', 'class' => '', 'id' => '' ),
 				),
 				array(
+					'key'           => 'field_parcinq_show_featured_image',
+					'label'         => 'Show featured image at the top of the article',
+					'name'          => 'show_featured_image',
+					'type'          => 'true_false',
+					'instructions'  => 'Turn this off only when the article design should not show the featured image as a top image.',
+					'required'      => 0,
+					'default_value' => 1,
+					'ui'            => 1,
+					'wrapper'       => array( 'width' => '', 'class' => '', 'id' => '' ),
+				),				array(
 					'key'           => 'field_parcinq_hero_kicker',
 					'label'         => 'Hero Kicker',
 					'name'          => 'hero_kicker',

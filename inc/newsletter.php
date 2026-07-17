@@ -41,12 +41,30 @@ function parcinq_register_newsletter_signup_post_type() {
 add_action( 'init', 'parcinq_register_newsletter_signup_post_type' );
 
 /**
+ * Normalize a newsletter email consistently.
+ *
+ * @param string $parcinq_email Raw email.
+ * @return string
+ */
+function parcinq_normalize_newsletter_email( $parcinq_email ) {
+	$parcinq_email = sanitize_email( strtolower( trim( (string) $parcinq_email ) ) );
+
+	return $parcinq_email;
+}
+
+/**
  * Find an existing newsletter signup by email.
  *
  * @param string $parcinq_email Subscriber email.
  * @return int Existing signup ID, or 0.
  */
 function parcinq_find_newsletter_signup_by_email( $parcinq_email ) {
+	$parcinq_email = parcinq_normalize_newsletter_email( $parcinq_email );
+
+	if ( '' === $parcinq_email ) {
+		return 0;
+	}
+
 	$parcinq_signups = get_posts(
 		array(
 			'post_type'      => 'newsletter_signup',
@@ -67,6 +85,76 @@ function parcinq_find_newsletter_signup_by_email( $parcinq_email ) {
 }
 
 /**
+ * Create a newsletter signup after validation.
+ *
+ * @param string $parcinq_email  Raw email.
+ * @param string $parcinq_source Signup source URL.
+ * @return array
+ */
+function parcinq_save_newsletter_signup( $parcinq_email, $parcinq_source = '' ) {
+	$parcinq_email = parcinq_normalize_newsletter_email( $parcinq_email );
+
+	if ( '' === $parcinq_email || ! is_email( $parcinq_email ) ) {
+		return array(
+			'status'  => 'error',
+			'code'    => 'invalid_email',
+			'message' => __( 'Please enter a valid email address.', 'parcinq-theme' ),
+			'email'   => $parcinq_email,
+		);
+	}
+
+	if ( parcinq_find_newsletter_signup_by_email( $parcinq_email ) ) {
+		return array(
+			'status'  => 'success',
+			'code'    => 'duplicate',
+			'message' => __( 'You’re already on the list.', 'parcinq-theme' ),
+			'email'   => '',
+		);
+	}
+
+	$parcinq_signup_id = wp_insert_post(
+		array(
+			'post_type'   => 'newsletter_signup',
+			'post_status' => 'private',
+			'post_title'  => $parcinq_email,
+		),
+		true
+	);
+
+	if ( is_wp_error( $parcinq_signup_id ) ) {
+		return array(
+			'status'  => 'error',
+			'code'    => 'insert_failed',
+			'message' => __( 'Something went wrong. Please try again.', 'parcinq-theme' ),
+			'email'   => $parcinq_email,
+		);
+	}
+
+	// Final duplicate check immediately before storing the normalized email meta.
+	$parcinq_existing_id = parcinq_find_newsletter_signup_by_email( $parcinq_email );
+	if ( $parcinq_existing_id && (int) $parcinq_existing_id !== (int) $parcinq_signup_id ) {
+		wp_delete_post( $parcinq_signup_id, true );
+
+		return array(
+			'status'  => 'success',
+			'code'    => 'duplicate',
+			'message' => __( 'You’re already on the list.', 'parcinq-theme' ),
+			'email'   => '',
+		);
+	}
+
+	update_post_meta( $parcinq_signup_id, '_parcinq_newsletter_email', $parcinq_email );
+	update_post_meta( $parcinq_signup_id, '_parcinq_newsletter_source', esc_url_raw( $parcinq_source ? $parcinq_source : home_url( '/' ) ) );
+
+	return array(
+		'status'  => 'success',
+		'code'    => 'created',
+		'message' => __( 'You’re in. Welcome, CINQtizen.', 'parcinq-theme' ),
+		'email'   => '',
+	);
+}
+
+/**
  * Process the newsletter signup form.
  *
  * @return array Result data for the template.
@@ -82,7 +170,7 @@ function parcinq_handle_newsletter_signup() {
 		return $parcinq_result;
 	}
 
-	$parcinq_email = isset( $_POST['parcinq_newsletter_email'] ) ? sanitize_email( wp_unslash( $_POST['parcinq_newsletter_email'] ) ) : '';
+	$parcinq_email = isset( $_POST['parcinq_newsletter_email'] ) ? parcinq_normalize_newsletter_email( wp_unslash( $_POST['parcinq_newsletter_email'] ) ) : '';
 	$parcinq_trap  = isset( $_POST['parcinq_newsletter_company'] ) ? sanitize_text_field( wp_unslash( $_POST['parcinq_newsletter_company'] ) ) : '';
 
 	$parcinq_result['email'] = $parcinq_email;
@@ -95,47 +183,59 @@ function parcinq_handle_newsletter_signup() {
 
 	if ( '' !== $parcinq_trap ) {
 		$parcinq_result['status']  = 'error';
-		$parcinq_result['message'] = __( 'The signup could not be saved.', 'parcinq-theme' );
+		$parcinq_result['message'] = __( 'Something went wrong. Please try again.', 'parcinq-theme' );
 		return $parcinq_result;
 	}
 
-	if ( '' === $parcinq_email || ! is_email( $parcinq_email ) ) {
-		$parcinq_result['status']  = 'error';
-		$parcinq_result['message'] = __( 'Please enter a valid email address.', 'parcinq-theme' );
-		return $parcinq_result;
-	}
+	$parcinq_result = parcinq_save_newsletter_signup( $parcinq_email, wp_get_referer() ? wp_get_referer() : home_url( '/' ) );
 
-	if ( parcinq_find_newsletter_signup_by_email( $parcinq_email ) ) {
-		$parcinq_result['status']  = 'success';
+	if ( 'duplicate' === $parcinq_result['code'] ) {
 		$parcinq_result['message'] = __( 'You are already on the list.', 'parcinq-theme' );
-		$parcinq_result['email']   = '';
-		return $parcinq_result;
+	} elseif ( 'created' === $parcinq_result['code'] ) {
+		$parcinq_result['message'] = __( "You're on the list.", 'parcinq-theme' );
 	}
-
-	$parcinq_signup_id = wp_insert_post(
-		array(
-			'post_type'   => 'newsletter_signup',
-			'post_status' => 'private',
-			'post_title'  => $parcinq_email,
-		),
-		true
-	);
-
-	if ( is_wp_error( $parcinq_signup_id ) ) {
-		$parcinq_result['status']  = 'error';
-		$parcinq_result['message'] = __( 'The signup could not be saved. Please try again.', 'parcinq-theme' );
-		return $parcinq_result;
-	}
-
-	update_post_meta( $parcinq_signup_id, '_parcinq_newsletter_email', $parcinq_email );
-	update_post_meta( $parcinq_signup_id, '_parcinq_newsletter_source', esc_url_raw( wp_get_referer() ? wp_get_referer() : home_url( '/' ) ) );
-
-	$parcinq_result['status']  = 'success';
-	$parcinq_result['message'] = __( "You're on the list.", 'parcinq-theme' );
-	$parcinq_result['email']   = '';
 
 	return $parcinq_result;
 }
+
+/**
+ * AJAX newsletter signup handler.
+ */
+function parcinq_ajax_newsletter_signup() {
+	$parcinq_nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+	if ( ! wp_verify_nonce( $parcinq_nonce, 'parcinq_newsletter_signup' ) ) {
+		wp_send_json_error(
+			array(
+				'code'    => 'expired',
+				'message' => __( 'The signup form expired. Please refresh and try again.', 'parcinq-theme' ),
+			),
+			403
+		);
+	}
+
+	$parcinq_trap = isset( $_POST['parcinq_newsletter_company'] ) ? sanitize_text_field( wp_unslash( $_POST['parcinq_newsletter_company'] ) ) : '';
+	if ( '' !== $parcinq_trap ) {
+		wp_send_json_error(
+			array(
+				'code'    => 'bot',
+				'message' => __( 'Something went wrong. Please try again.', 'parcinq-theme' ),
+			),
+			400
+		);
+	}
+
+	$parcinq_email  = isset( $_POST['parcinq_newsletter_email'] ) ? wp_unslash( $_POST['parcinq_newsletter_email'] ) : '';
+	$parcinq_result = parcinq_save_newsletter_signup( $parcinq_email, wp_get_referer() ? wp_get_referer() : home_url( '/' ) );
+
+	if ( 'error' === $parcinq_result['status'] ) {
+		wp_send_json_error( $parcinq_result, 'invalid_email' === $parcinq_result['code'] ? 400 : 500 );
+	}
+
+	wp_send_json_success( $parcinq_result );
+}
+add_action( 'wp_ajax_parcinq_newsletter_signup', 'parcinq_ajax_newsletter_signup' );
+add_action( 'wp_ajax_nopriv_parcinq_newsletter_signup', 'parcinq_ajax_newsletter_signup' );
 
 /**
  * Add useful admin columns for newsletter signups.

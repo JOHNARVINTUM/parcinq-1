@@ -25,6 +25,12 @@ $parcinq_get_category_url = static function ( $parcinq_slug, $parcinq_fallback =
 	return home_url( '/' . trim( $parcinq_fallback ? $parcinq_fallback : $parcinq_slug, '/' ) . '/' );
 };
 
+$parcinq_footer_description_fallback = __( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' );
+$parcinq_footer_description          = trim( (string) get_theme_mod( 'footer_description', '' ) );
+
+if ( '' === $parcinq_footer_description ) {
+	$parcinq_footer_description = $parcinq_footer_description_fallback;
+}
 $parcinq_read_links = array(
 	array(
 		'label' => __( "What's New", 'parcinq-theme' ),
@@ -85,7 +91,7 @@ $parcinq_social_links = array(
 				<a class="foot-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 					<img class="foot-logo-image" src="<?php echo esc_url( $parcinq_footer_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 				</a>
-				<p><?php echo esc_html__( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' ); ?></p>
+				<p><?php echo esc_html( $parcinq_footer_description ); ?></p>
 			</div>
 
 			<nav class="foot-col" aria-label="<?php echo esc_attr__( 'Read', 'parcinq-theme' ); ?>">
@@ -123,6 +129,7 @@ $parcinq_social_links = array(
 		</div>
 	</div>
 </footer>
+<?php get_template_part( 'template-parts/newsletter-modal' ); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -16,6 +16,11 @@ if ( ! is_callable( $parcinq_get_display_category ) ) {
 $parcinq_get_field  = function_exists( 'get_field' ) ? 'get_field' : null;
 $parcinq_post_id    = get_the_ID();
 $parcinq_categories = get_the_category();
+$parcinq_show_featured_image = true;
+
+if ( metadata_exists( 'post', $parcinq_post_id, 'show_featured_image' ) ) {
+	$parcinq_show_featured_image = '0' !== (string) get_post_meta( $parcinq_post_id, 'show_featured_image', true );
+}
 $parcinq_author_id          = (int) get_the_author_meta( 'ID' );
 $parcinq_author_name        = get_the_author_meta( 'display_name', $parcinq_author_id );
 $parcinq_author_description = get_the_author_meta( 'description', $parcinq_author_id );
@@ -102,7 +107,7 @@ if ( count( $parcinq_related_ids ) < 3 ) {
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'single-cover-article' ); ?>>
 	<section class="art-hero">
-		<?php if ( has_post_thumbnail() ) : ?>
+		<?php if ( $parcinq_show_featured_image && has_post_thumbnail() ) : ?>
 			<div class="ph art-hero-media">
 				<?php
 				the_post_thumbnail(

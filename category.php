@@ -155,6 +155,7 @@ if ( $parcinq_category instanceof WP_Term && isset( $parcinq_empty_states[ $parc
 				<span class="kicker"><?php echo esc_html( $parcinq_empty_state['kicker'] ); ?></span>
 				<h2 id="category-empty-title"><?php echo esc_html( $parcinq_empty_state['title'] ); ?></h2>
 				<p><?php echo esc_html( $parcinq_empty_state['copy'] ); ?></p>
+				<button class="btn cinq-modal-trigger" type="button" data-cinq-modal-open><?php echo esc_html__( 'Become a CINQtizen', 'parcinq-theme' ); ?></button>
 			</section>
 		<?php endif; ?>
 	</div>

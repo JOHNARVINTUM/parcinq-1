@@ -20,6 +20,11 @@ $parcinq_thumbnail_alt    = $parcinq_thumbnail_id ? trim( (string) get_post_meta
 $parcinq_thumbnail_alt    = '' !== $parcinq_thumbnail_alt ? $parcinq_thumbnail_alt : get_the_title();
 $parcinq_caption          = '';
 $parcinq_permalink        = get_permalink();
+$parcinq_show_featured_image = true;
+
+if ( metadata_exists( 'post', $parcinq_post_id, 'show_featured_image' ) ) {
+	$parcinq_show_featured_image = '0' !== (string) get_post_meta( $parcinq_post_id, 'show_featured_image', true );
+}
 $parcinq_author_id          = (int) get_the_author_meta( 'ID' );
 $parcinq_author_name        = get_the_author_meta( 'display_name', $parcinq_author_id );
 $parcinq_author_description = get_the_author_meta( 'description', $parcinq_author_id );
@@ -87,26 +92,28 @@ $parcinq_tags = get_the_tags();
 			</a>
 		</div>
 
-		<figure class="na-hero">
-			<?php if ( has_post_thumbnail() ) : ?>
-				<div class="ph">
-					<?php
-					the_post_thumbnail(
-						'large',
-						array(
-							'class' => 'na-hero-image',
-							'alt'   => $parcinq_thumbnail_alt,
-						)
-					);
-					?>
-				</div>
-			<?php else : ?>
-				<div class="ph g5" data-label="<?php echo esc_attr__( 'Lead Image', 'parcinq-theme' ); ?>"></div>
-			<?php endif; ?>
-			<?php if ( '' !== $parcinq_caption ) : ?>
-				<figcaption><?php echo esc_html( $parcinq_caption ); ?></figcaption>
-			<?php endif; ?>
-		</figure>
+		<?php if ( $parcinq_show_featured_image ) : ?>
+			<figure class="na-hero">
+				<?php if ( has_post_thumbnail() ) : ?>
+					<div class="ph na-hero-media">
+						<?php
+						the_post_thumbnail(
+							'full',
+							array(
+								'class' => 'na-hero-image',
+								'alt'   => $parcinq_thumbnail_alt,
+							)
+						);
+						?>
+					</div>
+				<?php else : ?>
+					<div class="ph na-hero-placeholder g5" data-label="<?php echo esc_attr__( 'Lead Image', 'parcinq-theme' ); ?>"></div>
+				<?php endif; ?>
+				<?php if ( '' !== $parcinq_caption ) : ?>
+					<figcaption><?php echo esc_html( $parcinq_caption ); ?></figcaption>
+				<?php endif; ?>
+			</figure>
+		<?php endif; ?>
 
 		<div class="na-body">
 			<?php the_content(); ?>
