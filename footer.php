@@ -26,7 +26,7 @@ $parcinq_get_category_url = static function ( $parcinq_slug, $parcinq_fallback =
 };
 
 $parcinq_footer_description_fallback = __( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' );
-$parcinq_footer_description          = trim( (string) get_theme_mod( 'footer_description', '' ) );
+$parcinq_footer_description          = trim( (string) get_theme_mod( 'footer_description', $parcinq_footer_description_fallback ) );
 
 if ( '' === $parcinq_footer_description ) {
 	$parcinq_footer_description = $parcinq_footer_description_fallback;

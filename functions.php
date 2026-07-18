@@ -19,26 +19,36 @@ require_once get_template_directory() . '/inc/newsletter.php';
 
 
 /**
- * Adds a small Customizer fallback for the footer description.
+ * Adds a Customizer section for the footer description.
  *
  * @param WP_Customize_Manager $parcinq_wp_customize Customizer instance.
  */
 function parcinq_customize_footer_description( $parcinq_wp_customize ) {
+	$parcinq_default_footer_description = __( 'An Asian pop culture publication. Music, fashion, beauty, culture and the personalities behind it all.', 'parcinq-theme' );
+
+	$parcinq_wp_customize->add_section(
+		'parcinq_footer',
+		array(
+			'title'    => __( 'Parcinq Footer', 'parcinq-theme' ),
+			'priority' => 160,
+		)
+	);
+
 	$parcinq_wp_customize->add_setting(
 		'footer_description',
 		array(
-			'default'           => '',
+			'default'           => $parcinq_default_footer_description,
 			'sanitize_callback' => 'sanitize_textarea_field',
+			'transport'         => 'refresh',
 		)
 	);
 
 	$parcinq_wp_customize->add_control(
 		'footer_description',
 		array(
-			'label'       => __( 'Footer Description', 'parcinq-theme' ),
-			'description' => __( 'Optional footer description. Leave blank to use the default PARCINQ sentence.', 'parcinq-theme' ),
-			'section'     => 'title_tagline',
-			'type'        => 'textarea',
+			'label'   => __( 'Footer Description', 'parcinq-theme' ),
+			'section' => 'parcinq_footer',
+			'type'    => 'textarea',
 		)
 	);
 }
