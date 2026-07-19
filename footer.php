@@ -129,6 +129,7 @@ $parcinq_social_links = array(
 		</div>
 	</div>
 </footer>
+<?php get_template_part( 'template-parts/search-overlay' ); ?>
 <?php get_template_part( 'template-parts/newsletter-modal' ); ?>
 <?php wp_footer(); ?>
 </body>

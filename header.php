@@ -12,6 +12,13 @@ if ( file_exists( $parcinq_header_logo_path ) ) {
 	$parcinq_header_logo_url = add_query_arg( 'ver', filemtime( $parcinq_header_logo_path ), $parcinq_header_logo_url );
 }
 
+$parcinq_drawer_logo_path = get_template_directory() . '/assets/images/parcinq-logo-white.png';
+$parcinq_drawer_logo_url  = get_template_directory_uri() . '/assets/images/parcinq-logo-white.png';
+
+if ( file_exists( $parcinq_drawer_logo_path ) ) {
+	$parcinq_drawer_logo_url = add_query_arg( 'ver', filemtime( $parcinq_drawer_logo_path ), $parcinq_drawer_logo_url );
+}
+
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -26,7 +33,9 @@ if ( file_exists( $parcinq_header_logo_path ) ) {
 <div class="drawer-back" id="drawerBack"></div>
 <aside class="drawer" id="drawer">
 	<button class="x" id="drawerClose" aria-label="<?php echo esc_attr__( 'Close menu', 'parcinq-theme' ); ?>">&times;</button>
-	<div class="drawer-logo">PARCIN<span class="five">Q</span></div>
+	<a class="drawer-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+		<img class="drawer-logo-image" src="<?php echo esc_url( $parcinq_drawer_logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+	</a>
 	<nav aria-label="<?php echo esc_attr__( 'Drawer menu', 'parcinq-theme' ); ?>">
 		<?php
 		wp_nav_menu(
@@ -102,8 +111,12 @@ if ( file_exists( $parcinq_header_logo_path ) ) {
 		</nav>
 
 		<div class="util r">
-			<svg class="icon-btn" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-			<svg class="icon-btn" viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true" focusable="false"><path d="M6 7h15l-1.5 9h-12z"/><path d="M6 7L5 3H2"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+			<button class="icon-btn search-toggle" type="button" data-search-open aria-label="<?php echo esc_attr__( 'Open search', 'parcinq-theme' ); ?>">
+				<svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+			</button>
+			<a class="icon-btn cart-link" href="<?php echo esc_url( 'https://www.parcinqmarketplace.com' ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr__( 'Visit Parcinq Marketplace', 'parcinq-theme' ); ?>">
+				<svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true" focusable="false"><path d="M6 7h15l-1.5 9h-12z"/><path d="M6 7L5 3H2"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+			</a>
 		</div>
 	</div>
 </header>

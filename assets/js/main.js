@@ -206,3 +206,39 @@ const hdr=document.querySelector('header');
     });
   }
 }());
+// Full-screen search overlay.
+(function () {
+  const overlay = document.getElementById('parcinqSearchOverlay');
+  if (!overlay) return;
+
+  const input = overlay.querySelector('[data-search-input]');
+  const closeButton = overlay.querySelector('[data-search-close]');
+  const triggers = document.querySelectorAll('[data-search-open]');
+  let lastFocus = null;
+
+  const openSearch = (trigger) => {
+    lastFocus = trigger || document.activeElement;
+    overlay.hidden = false;
+    document.body.classList.add('search-open');
+    window.setTimeout(() => input && input.focus(), 30);
+  };
+
+  const closeSearch = () => {
+    overlay.hidden = true;
+    document.body.classList.remove('search-open');
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => openSearch(trigger));
+  });
+
+  closeButton && closeButton.addEventListener('click', closeSearch);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) closeSearch();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !overlay.hidden) closeSearch();
+  });
+}());
