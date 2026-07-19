@@ -16,6 +16,7 @@ require_once get_template_directory() . '/inc/article-fields.php';
 require_once get_template_directory() . '/inc/contributors.php';
 require_once get_template_directory() . '/inc/launch-curtain.php';
 require_once get_template_directory() . '/inc/newsletter.php';
+require_once get_template_directory() . '/inc/search.php';
 
 
 /**

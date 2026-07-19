@@ -29,7 +29,7 @@ $parcinq_search_query = get_search_query();
 				<input class="search-field" id="parcinq-search-input" type="search" name="s" value="<?php echo esc_attr( $parcinq_search_query ); ?>" placeholder="<?php echo esc_attr__( 'Search PARCINQ...', 'parcinq-theme' ); ?>" autocomplete="off" data-search-input>
 				<button class="search-submit" type="submit"><?php echo esc_html__( 'Search', 'parcinq-theme' ); ?></button>
 			</form>
-			<div class="search-results" aria-live="polite">
+			<div class="search-results" aria-live="polite" data-search-results>
 				<p class="search-hint"><?php echo esc_html__( 'Start typing to search stories and sections', 'parcinq-theme' ); ?></p>
 			</div>
 		</div>

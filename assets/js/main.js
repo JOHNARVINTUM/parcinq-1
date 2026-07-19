@@ -213,19 +213,133 @@ const hdr=document.querySelector('header');
 
   const input = overlay.querySelector('[data-search-input]');
   const closeButton = overlay.querySelector('[data-search-close]');
+  const results = overlay.querySelector('[data-search-results]');
   const triggers = document.querySelectorAll('[data-search-open]');
+  const config = window.parcinqSearch || {};
+  const messages = config.messages || {};
+  const minLength = Number.parseInt(config.minLength || '1', 10);
+  const debounceDelay = Number.parseInt(config.debounce || '300', 10);
   let lastFocus = null;
+  let debounceId;
+  let controller;
+  let requestToken = 0;
+
+  const escapeHtml = (value) => String(value || '').replace(/[&<>'"]/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#039;',
+    '"': '&quot;'
+  }[char]));
+
+  const resultCountText = (count) => `${count} RESULT${count === 1 ? '' : 'S'}`;
+
+  const setResults = (html) => {
+    if (results) results.innerHTML = html;
+  };
+
+  const showInitial = () => {
+    setResults(`<p class="search-hint">${escapeHtml(messages.initial || 'Start typing to search stories and sections')}</p>`);
+  };
+
+  const showLoading = () => {
+    setResults(`<p class="search-hint">${escapeHtml(messages.loading || 'Searching...')}</p>`);
+  };
+
+  const showEmpty = (query) => {
+    setResults(`<p class="sr-empty">${escapeHtml(messages.noResults || 'No results for')} <span>&quot;${escapeHtml(query)}&quot;</span></p>`);
+  };
+
+  const renderResults = (payload) => {
+    const data = payload && payload.data ? payload.data : {};
+    const rows = Array.isArray(data.results) ? data.results : [];
+    const total = Number.parseInt(data.total || '0', 10);
+
+    if (!rows.length) {
+      showEmpty(data.query || (input ? input.value : ''));
+      return;
+    }
+
+    const items = rows.map((item) => `
+      <a class="sr-item" href="${escapeHtml(item.permalink)}">
+        <h4>${escapeHtml(item.title)}</h4>
+        <span class="cat">${escapeHtml(item.label)}</span>
+      </a>
+    `).join('');
+
+    setResults(`<p class="search-hint">${escapeHtml(resultCountText(total))}</p>${items}`);
+  };
+
+  const abortCurrent = () => {
+    if (controller) controller.abort();
+    controller = null;
+  };
+
+  const runSearch = () => {
+    const query = input ? input.value.trim() : '';
+    requestToken += 1;
+    const token = requestToken;
+
+    abortCurrent();
+
+    if (query.length < minLength) {
+      showInitial();
+      return;
+    }
+
+    showLoading();
+    controller = new AbortController();
+
+    const formData = new FormData();
+    formData.append('action', 'parcinq_live_search');
+    formData.append('nonce', config.nonce || '');
+    formData.append('query', query);
+
+    fetch(config.ajaxUrl || '/wp-admin/admin-ajax.php', {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: formData,
+      signal: controller.signal
+    })
+      .then((response) => response.json())
+      .then((payload) => {
+        if (token !== requestToken || !input || query !== input.value.trim()) return;
+        if (!payload || !payload.success) {
+          setResults(`<p class="sr-empty">${escapeHtml(messages.error || 'Search is temporarily unavailable.')}</p>`);
+          return;
+        }
+        renderResults(payload);
+      })
+      .catch((error) => {
+        if (error && error.name === 'AbortError') return;
+        if (token === requestToken) {
+          setResults(`<p class="sr-empty">${escapeHtml(messages.error || 'Search is temporarily unavailable.')}</p>`);
+        }
+      });
+  };
+
+  const queueSearch = () => {
+    window.clearTimeout(debounceId);
+    debounceId = window.setTimeout(runSearch, Number.isFinite(debounceDelay) ? debounceDelay : 300);
+  };
 
   const openSearch = (trigger) => {
     lastFocus = trigger || document.activeElement;
     overlay.hidden = false;
+    overlay.classList.add('open');
     document.body.classList.add('search-open');
+    showInitial();
     window.setTimeout(() => input && input.focus(), 30);
   };
 
   const closeSearch = () => {
+    window.clearTimeout(debounceId);
+    abortCurrent();
+    overlay.classList.remove('open');
     overlay.hidden = true;
     document.body.classList.remove('search-open');
+    if (input) input.value = '';
+    showInitial();
     if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
   };
 
@@ -233,10 +347,8 @@ const hdr=document.querySelector('header');
     trigger.addEventListener('click', () => openSearch(trigger));
   });
 
+  input && input.addEventListener('input', queueSearch);
   closeButton && closeButton.addEventListener('click', closeSearch);
-  overlay.addEventListener('click', (event) => {
-    if (event.target === overlay) closeSearch();
-  });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !overlay.hidden) closeSearch();

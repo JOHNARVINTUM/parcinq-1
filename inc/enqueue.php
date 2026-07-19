@@ -63,5 +63,21 @@ function parcinq_enqueue_assets() {
 			),
 		)
 	);
+	wp_localize_script(
+		'parcinq-main',
+		'parcinqSearch',
+		array(
+			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
+			'nonce'     => wp_create_nonce( 'parcinq_live_search' ),
+			'minLength' => 1,
+			'debounce'  => 300,
+			'messages'  => array(
+				'initial'   => __( 'Start typing to search stories and sections', 'parcinq-theme' ),
+				'loading'   => __( 'Searching...', 'parcinq-theme' ),
+				'noResults' => __( 'No results for', 'parcinq-theme' ),
+				'error'     => __( 'Search is temporarily unavailable.', 'parcinq-theme' ),
+			),
+		)
+	);
 }
 add_action( 'wp_enqueue_scripts', 'parcinq_enqueue_assets' );
